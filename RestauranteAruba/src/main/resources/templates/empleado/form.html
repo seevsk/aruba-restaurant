@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(titulo='Empleados')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar(activo='empleados')}"></nav>
+<main class="content">
+    <div class="page-head">
+        <div>
+            <div class="page-head__eyebrow">Gestión · Doble</div>
+            <h1 th:text="${empleado.id == null} ? 'Registrar empleado' : 'Actualizar empleado'"></h1>
+        </div>
+        <a class="btn btn--ghost" th:href="@{/empleados}">← Volver</a>
+    </div>
+
+    <div class="card" style="max-width: 720px;">
+        <form method="post" th:action="@{/empleados/guardar}" th:object="${empleado}">
+            <input type="hidden" th:if="${empleado.id != null}" th:field="*{id}" />
+
+            <div class="form-grid">
+                <div class="field" th:classappend="${#fields.hasErrors('tipoDocumento')} ? 'field--invalid' : ''">
+                    <label for="tipoDocumento">Tipo de documento</label>
+                    <select id="tipoDocumento" th:field="*{tipoDocumento.id}">
+                        <option value="">Seleccionar...</option>
+                        <option th:each="t : ${tiposDocumento}" th:value="${t.id}" th:text="${t.nombre}"></option>
+                    </select>
+                    <div class="error" th:if="${#fields.hasErrors('tipoDocumento')}" th:errors="*{tipoDocumento}"></div>
+                </div>
+                <div class="field" th:classappend="${#fields.hasErrors('numeroDocumento')} ? 'field--invalid' : ''">
+                    <label for="numeroDocumento">Número de documento</label>
+                    <input type="text" id="numeroDocumento" th:field="*{numeroDocumento}" placeholder="70111222" />
+                    <div class="error" th:if="${#fields.hasErrors('numeroDocumento')}" th:errors="*{numeroDocumento}"></div>
+                </div>
+                <div class="field" th:classappend="${#fields.hasErrors('nombres')} ? 'field--invalid' : ''">
+                    <label for="nombres">Nombres</label>
+                    <input type="text" id="nombres" th:field="*{nombres}" />
+                    <div class="error" th:if="${#fields.hasErrors('nombres')}" th:errors="*{nombres}"></div>
+                </div>
+                <div class="field" th:classappend="${#fields.hasErrors('apellidoPaterno')} ? 'field--invalid' : ''">
+                    <label for="apellidoPaterno">Apellido paterno</label>
+                    <input type="text" id="apellidoPaterno" th:field="*{apellidoPaterno}" />
+                    <div class="error" th:if="${#fields.hasErrors('apellidoPaterno')}" th:errors="*{apellidoPaterno}"></div>
+                </div>
+                <div class="field" th:classappend="${#fields.hasErrors('apellidoMaterno')} ? 'field--invalid' : ''">
+                    <label for="apellidoMaterno">Apellido materno</label>
+                    <input type="text" id="apellidoMaterno" th:field="*{apellidoMaterno}" />
+                    <div class="error" th:if="${#fields.hasErrors('apellidoMaterno')}" th:errors="*{apellidoMaterno}"></div>
+                </div>
+                <div class="field" th:classappend="${#fields.hasErrors('cargo')} ? 'field--invalid' : ''">
+                    <label for="cargo">Cargo</label>
+                    <input type="text" id="cargo" th:field="*{cargo}" placeholder="Ej. Mesero" />
+                    <div class="error" th:if="${#fields.hasErrors('cargo')}" th:errors="*{cargo}"></div>
+                </div>
+                <div class="field" th:classappend="${#fields.hasErrors('telefono')} ? 'field--invalid' : ''">
+                    <label for="telefono">Teléfono</label>
+                    <input type="text" id="telefono" th:field="*{telefono}" />
+                    <div class="error" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></div>
+                </div>
+                <div class="field" th:classappend="${#fields.hasErrors('distrito')} ? 'field--invalid' : ''">
+                    <label for="distrito">Distrito</label>
+                    <select id="distrito" th:field="*{distrito.id}">
+                        <option value="">Seleccionar...</option>
+                        <option th:each="d : ${distritos}" th:value="${d.id}" th:text="${d.nombre}"></option>
+                    </select>
+                    <div class="error" th:if="${#fields.hasErrors('distrito')}" th:errors="*{distrito}"></div>
+                </div>
+                <div class="field field--full" th:classappend="${#fields.hasErrors('direccion')} ? 'field--invalid' : ''">
+                    <label for="direccion">Dirección</label>
+                    <input type="text" id="direccion" th:field="*{direccion}" />
+                    <div class="error" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn--primary" type="submit">Guardar</button>
+                <a class="btn btn--ghost" th:href="@{/empleados}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

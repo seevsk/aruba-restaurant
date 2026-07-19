@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(titulo='Categorías')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar(activo='categorias')}"></nav>
+<main class="content">
+    <div th:if="${mensaje}" class="alert alert--success" th:text="${mensaje}"></div>
+    <div th:if="${error}" class="alert alert--error" th:text="${error}"></div>
+
+    <div class="page-head">
+        <div>
+            <div class="page-head__eyebrow">Catálogo · Simple</div>
+            <h1>Categorías</h1>
+            <p>Agrupan los productos de la carta: bebidas, platos, postres.</p>
+        </div>
+        <a class="btn btn--primary" th:href="@{/categorias/nuevo}">+ Registrar</a>
+    </div>
+
+    <form class="search-form" method="get" th:action="@{/categorias}">
+        <input type="text" name="buscar" placeholder="Buscar por nombre..." th:value="${buscar}" />
+        <button class="btn btn--ghost" type="submit">Buscar</button>
+    </form>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+            <tr>
+                <th class="num">Cod.</th>
+                <th>Nombre</th>
+                <th>Estado</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${categorias}">
+                <td class="num" th:text="${item.id}"></td>
+                <td th:text="${item.nombre}"></td>
+                <td>
+                    <span th:if="${item.estado}" class="stub">Habilitado</span>
+                    <span th:unless="${item.estado}" class="stub stub--off">Deshabilitado</span>
+                </td>
+                <td class="actions">
+                    <a class="btn btn--ghost btn--sm" th:href="@{/categorias/{id}/editar(id=${item.id})}">Editar</a>
+                    <form method="post" th:if="${item.estado}" th:action="@{/categorias/{id}/deshabilitar(id=${item.id})}">
+                        <button class="btn btn--ghost btn--sm" type="submit">Deshabilitar</button>
+                    </form>
+                    <form method="post" th:unless="${item.estado}" th:action="@{/categorias/{id}/habilitar(id=${item.id})}">
+                        <button class="btn btn--ghost btn--sm" type="submit">Habilitar</button>
+                    </form>
+                    <form method="post" th:action="@{/categorias/{id}/eliminar(id=${item.id})}" onsubmit="return confirm('¿Eliminar este registro?');">
+                        <button class="btn btn--danger btn--sm" type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="empty-state" th:if="${#lists.isEmpty(categorias)}">
+            <strong>Sin resultados</strong>
+            Todavía no hay categorías registradas.
+        </div>
+    </div>
+</main>
+</body>
+</html>

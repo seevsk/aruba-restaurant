@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(titulo='Mesas')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar(activo='mesas')}"></nav>
+<main class="content">
+    <div class="page-head">
+        <div>
+            <div class="page-head__eyebrow">Catálogo · Simple</div>
+            <h1 th:text="${mesa.id == null} ? 'Registrar mesa' : 'Actualizar mesa'"></h1>
+        </div>
+        <a class="btn btn--ghost" th:href="@{/mesas}">← Volver</a>
+    </div>
+
+    <div class="card">
+        <form method="post" th:action="@{/mesas/guardar}" th:object="${mesa}">
+            <input type="hidden" th:if="${mesa.id != null}" th:field="*{id}" />
+
+            <div class="form-grid">
+                <div class="field" th:classappend="${#fields.hasErrors('numero')} ? 'field--invalid' : ''">
+                    <label for="numero">Número</label>
+                    <input type="text" id="numero" th:field="*{numero}" placeholder="Ej. M-04" />
+                    <div class="error" th:if="${#fields.hasErrors('numero')}" th:errors="*{numero}"></div>
+                </div>
+                <div class="field" th:classappend="${#fields.hasErrors('capacidad')} ? 'field--invalid' : ''">
+                    <label for="capacidad">Capacidad</label>
+                    <input type="number" id="capacidad" th:field="*{capacidad}" min="1" placeholder="Ej. 4" />
+                    <div class="error" th:if="${#fields.hasErrors('capacidad')}" th:errors="*{capacidad}"></div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn--primary" type="submit">Guardar</button>
+                <a class="btn btn--ghost" th:href="@{/mesas}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

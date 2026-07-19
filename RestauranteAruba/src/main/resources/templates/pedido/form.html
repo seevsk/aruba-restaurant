@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(titulo='Pedidos')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar(activo='pedidos')}"></nav>
+<main class="content">
+    <div class="page-head">
+        <div>
+            <div class="page-head__eyebrow">Pedidos · Transaccional</div>
+            <h1 th:text="${pedido.id == null} ? 'Registrar pedido' : 'Actualizar pedido'"></h1>
+        </div>
+        <a class="btn btn--ghost" th:href="@{/pedidos}">← Volver</a>
+    </div>
+
+    <div class="card">
+        <form method="post" th:action="@{/pedidos/guardar}" th:object="${pedido}">
+            <input type="hidden" th:if="${pedido.id != null}" th:field="*{id}" />
+
+            <div class="field" th:classappend="${#fields.hasErrors('mesa')} ? 'field--invalid' : ''">
+                <label for="mesa">Mesa</label>
+                <select id="mesa" th:field="*{mesa.id}">
+                    <option value="">Seleccionar...</option>
+                    <option th:each="m : ${mesas}" th:value="${m.id}" th:text="${m.numero} + ' (' + ${m.capacidad} + ' personas)'"></option>
+                </select>
+                <div class="error" th:if="${#fields.hasErrors('mesa')}" th:errors="*{mesa}"></div>
+            </div>
+
+            <div class="field" th:classappend="${#fields.hasErrors('empleado')} ? 'field--invalid' : ''">
+                <label for="empleado">Mozo / empleado</label>
+                <select id="empleado" th:field="*{empleado.id}">
+                    <option value="">Seleccionar...</option>
+                    <option th:each="e : ${empleados}" th:value="${e.id}" th:text="${e.nombres} + ' ' + ${e.apellidoPaterno} + ' — ' + ${e.cargo}"></option>
+                </select>
+                <div class="error" th:if="${#fields.hasErrors('empleado')}" th:errors="*{empleado}"></div>
+            </div>
+
+            <div class="field">
+                <label for="clienteId">Cliente (opcional)</label>
+                <select id="clienteId" name="clienteId">
+                    <option value="">Sin cliente registrado</option>
+                    <option th:each="c : ${clientes}" th:value="${c.id}" th:text="${c.nombres} + ' ' + ${c.apellidoPaterno} + ' — ' + ${c.numeroDocumento}"
+                            th:selected="${pedido.cliente != null and pedido.cliente.id == c.id}"></option>
+                </select>
+                <div class="hint">Déjalo vacío para un consumidor sin cuenta.</div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn--primary" type="submit">Guardar</button>
+                <a class="btn btn--ghost" th:href="@{/pedidos}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

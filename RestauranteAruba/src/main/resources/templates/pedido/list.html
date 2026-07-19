@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(titulo='Pedidos')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar(activo='pedidos')}"></nav>
+<main class="content">
+    <div th:if="${mensaje}" class="alert alert--success" th:text="${mensaje}"></div>
+    <div th:if="${error}" class="alert alert--error" th:text="${error}"></div>
+
+    <div class="page-head">
+        <div>
+            <div class="page-head__eyebrow">Pedidos · Transaccional</div>
+            <h1>Pedidos</h1>
+            <p>Comandas abiertas por mesa. El cliente es opcional.</p>
+        </div>
+        <a class="btn btn--primary" th:href="@{/pedidos/nuevo}">+ Registrar</a>
+    </div>
+
+    <form class="search-form" method="get" th:action="@{/pedidos}">
+        <input type="text" name="buscar" placeholder="Buscar por mesa, mozo, cliente o estado..." th:value="${buscar}" />
+        <button class="btn btn--ghost" type="submit">Buscar</button>
+    </form>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+            <tr>
+                <th class="num">Cod.</th>
+                <th>Fecha</th>
+                <th>Mesa</th>
+                <th>Mozo</th>
+                <th>Cliente</th>
+                <th>Estado</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${pedidos}">
+                <td class="num" th:text="${item.id}"></td>
+                <td th:text="${#temporals.format(item.fecha, 'dd/MM/yyyy HH:mm')}"></td>
+                <td th:text="${item.mesa.numero}"></td>
+                <td th:text="${item.empleado.nombres} + ' ' + ${item.empleado.apellidoPaterno}"></td>
+                <td th:text="${item.cliente != null ? item.cliente.nombres + ' ' + item.cliente.apellidoPaterno : '—'}"></td>
+                <td>
+                    <span th:if="${item.estado == 'PENDIENTE'}" class="stub stub--busy">Pendiente</span>
+                    <span th:if="${item.estado == 'ENTREGADO'}" class="stub">Entregado</span>
+                    <span th:if="${item.estado == 'CANCELADO'}" class="stub stub--off">Cancelado</span>
+                </td>
+                <td class="actions">
+                    <a class="btn btn--ghost btn--sm" th:href="@{/pedidos/{id}/editar(id=${item.id})}">Editar</a>
+                    <form method="post" th:if="${item.estado != 'CANCELADO'}" th:action="@{/pedidos/{id}/deshabilitar(id=${item.id})}">
+                        <button class="btn btn--ghost btn--sm" type="submit">Cancelar</button>
+                    </form>
+                    <form method="post" th:if="${item.estado == 'CANCELADO'}" th:action="@{/pedidos/{id}/habilitar(id=${item.id})}">
+                        <button class="btn btn--ghost btn--sm" type="submit">Reabrir</button>
+                    </form>
+                    <form method="post" th:action="@{/pedidos/{id}/eliminar(id=${item.id})}" onsubmit="return confirm('¿Eliminar este registro?');">
+                        <button class="btn btn--danger btn--sm" type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="empty-state" th:if="${#lists.isEmpty(pedidos)}">
+            <strong>Sin resultados</strong>
+            Todavía no hay pedidos registrados.
+        </div>
+    </div>
+</main>
+</body>
+</html>
