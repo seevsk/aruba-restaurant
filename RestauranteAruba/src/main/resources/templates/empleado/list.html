@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(titulo='Empleados')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar(activo='empleados')}"></nav>
+<main class="content">
+    <div th:if="${mensaje}" class="alert alert--success" th:text="${mensaje}"></div>
+    <div th:if="${error}" class="alert alert--error" th:text="${error}"></div>
+
+    <div class="page-head">
+        <div>
+            <div class="page-head__eyebrow">Gestión · Doble</div>
+            <h1>Empleados</h1>
+            <p>Personal del restaurante, con su distrito y tipo de documento.</p>
+        </div>
+        <a class="btn btn--primary" th:href="@{/empleados/nuevo}">+ Registrar</a>
+    </div>
+
+    <form class="search-form" method="get" th:action="@{/empleados}">
+        <input type="text" name="buscar" placeholder="Buscar por nombre o documento..." th:value="${buscar}" />
+        <button class="btn btn--ghost" type="submit">Buscar</button>
+    </form>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+            <tr>
+                <th class="num">Cod.</th>
+                <th>Documento</th>
+                <th>Nombre completo</th>
+                <th>Cargo</th>
+                <th>Distrito</th>
+                <th>Estado</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${empleados}">
+                <td class="num" th:text="${item.id}"></td>
+                <td th:text="${item.tipoDocumento.nombre} + ' ' + ${item.numeroDocumento}"></td>
+                <td th:text="${item.nombres} + ' ' + ${item.apellidoPaterno} + ' ' + ${item.apellidoMaterno}"></td>
+                <td th:text="${item.cargo}"></td>
+                <td th:text="${item.distrito.nombre}"></td>
+                <td>
+                    <span th:if="${item.estado}" class="stub">Habilitado</span>
+                    <span th:unless="${item.estado}" class="stub stub--off">Deshabilitado</span>
+                </td>
+                <td class="actions">
+                    <a class="btn btn--ghost btn--sm" th:href="@{/empleados/{id}/editar(id=${item.id})}">Editar</a>
+                    <form method="post" th:if="${item.estado}" th:action="@{/empleados/{id}/deshabilitar(id=${item.id})}">
+                        <button class="btn btn--ghost btn--sm" type="submit">Deshabilitar</button>
+                    </form>
+                    <form method="post" th:unless="${item.estado}" th:action="@{/empleados/{id}/habilitar(id=${item.id})}">
+                        <button class="btn btn--ghost btn--sm" type="submit">Habilitar</button>
+                    </form>
+                    <form method="post" th:action="@{/empleados/{id}/eliminar(id=${item.id})}" onsubmit="return confirm('¿Eliminar este registro?');">
+                        <button class="btn btn--danger btn--sm" type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="empty-state" th:if="${#lists.isEmpty(empleados)}">
+            <strong>Sin resultados</strong>
+            Todavía no hay empleados registrados.
+        </div>
+    </div>
+</main>
+</body>
+</html>

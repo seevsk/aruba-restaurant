@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(titulo='Inicio')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar(activo='inicio')}"></nav>
+<main class="content">
+    <div class="hero">
+        <div class="hero__eyebrow">Aruba · Back office</div>
+        <h1>Catálogo y gestión del restaurante</h1>
+        <p>Registra, actualiza, habilita y busca la información base con la que trabaja el equipo antes de tomar comandas: mesas, clientes, insumos y todo lo demás.</p>
+    </div>
+
+    <div class="section-title">Catálogo</div>
+    <div class="module-grid">
+        <a class="module-card" th:href="@{/tipos-documento}">
+            <div class="module-card__label">Simple</div>
+            <h3>Tipos de documento</h3>
+        </a>
+        <a class="module-card" th:href="@{/distritos}">
+            <div class="module-card__label">Simple</div>
+            <h3>Distritos</h3>
+        </a>
+        <a class="module-card" th:href="@{/mesas}">
+            <div class="module-card__label">Simple</div>
+            <h3>Mesas</h3>
+        </a>
+        <a class="module-card" th:href="@{/metodos-pago}">
+            <div class="module-card__label">Simple</div>
+            <h3>Métodos de pago</h3>
+        </a>
+        <a class="module-card" th:href="@{/categorias}">
+            <div class="module-card__label">Simple</div>
+            <h3>Categorías</h3>
+        </a>
+        <a class="module-card" th:href="@{/proveedores}">
+            <div class="module-card__label">Simple</div>
+            <h3>Proveedores</h3>
+        </a>
+    </div>
+
+    <div class="section-title">Gestión</div>
+    <div class="module-grid">
+        <a class="module-card" th:href="@{/clientes}">
+            <div class="module-card__label">Doble · distrito + tipo doc.</div>
+            <h3>Clientes</h3>
+        </a>
+        <a class="module-card" th:href="@{/empleados}">
+            <div class="module-card__label">Doble · distrito + tipo doc.</div>
+            <h3>Empleados</h3>
+        </a>
+        <a class="module-card" th:href="@{/productos}">
+            <div class="module-card__label">Doble · categoría</div>
+            <h3>Productos</h3>
+        </a>
+        <a class="module-card" th:href="@{/insumos}">
+            <div class="module-card__label">Doble · proveedor</div>
+            <h3>Insumos</h3>
+        </a>
+    </div>
+
+    <div class="section-title">Pedidos</div>
+    <div class="module-grid">
+        <a class="module-card" th:href="@{/pedidos}">
+            <div class="module-card__label">Transaccional · mesa + mozo + cliente</div>
+            <h3>Pedidos</h3>
+        </a>
+        <a class="module-card" th:href="@{/detalles-pedido}">
+            <div class="module-card__label">Transaccional · pedido + producto</div>
+            <h3>Detalle de pedido</h3>
+        </a>
+        <a class="module-card" th:href="@{/comprobantes}">
+            <div class="module-card__label">Transaccional · pedido + método de pago</div>
+            <h3>Comprobantes</h3>
+        </a>
+    </div>
+</main>
+</body>
+</html>

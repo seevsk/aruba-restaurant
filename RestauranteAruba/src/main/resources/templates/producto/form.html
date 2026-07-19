@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(titulo='Productos')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar(activo='productos')}"></nav>
+<main class="content">
+    <div class="page-head">
+        <div>
+            <div class="page-head__eyebrow">Gestión · Doble</div>
+            <h1 th:text="${producto.id == null} ? 'Registrar producto' : 'Actualizar producto'"></h1>
+        </div>
+        <a class="btn btn--ghost" th:href="@{/productos}">← Volver</a>
+    </div>
+
+    <div class="card">
+        <form method="post" th:action="@{/productos/guardar}" th:object="${producto}">
+            <input type="hidden" th:if="${producto.id != null}" th:field="*{id}" />
+
+            <div class="field" th:classappend="${#fields.hasErrors('nombre')} ? 'field--invalid' : ''">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" th:field="*{nombre}" placeholder="Ej. Lomo Saltado" />
+                <div class="error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+            </div>
+
+            <div class="form-grid">
+                <div class="field" th:classappend="${#fields.hasErrors('categoria')} ? 'field--invalid' : ''">
+                    <label for="categoria">Categoría</label>
+                    <select id="categoria" th:field="*{categoria.id}">
+                        <option value="">Seleccionar...</option>
+                        <option th:each="c : ${categorias}" th:value="${c.id}" th:text="${c.nombre}"></option>
+                    </select>
+                    <div class="error" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></div>
+                </div>
+                <div class="field" th:classappend="${#fields.hasErrors('precio')} ? 'field--invalid' : ''">
+                    <label for="precio">Precio (S/)</label>
+                    <input type="number" id="precio" step="0.01" min="0.01" th:field="*{precio}" placeholder="28.00" />
+                    <div class="error" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn--primary" type="submit">Guardar</button>
+                <a class="btn btn--ghost" th:href="@{/productos}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

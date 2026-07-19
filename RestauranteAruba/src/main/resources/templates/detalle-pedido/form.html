@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(titulo='Detalle de pedido')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar(activo='detalles-pedido')}"></nav>
+<main class="content">
+    <div class="page-head">
+        <div>
+            <div class="page-head__eyebrow">Pedidos · Transaccional</div>
+            <h1 th:text="${detalle.id == null} ? 'Registrar detalle' : 'Actualizar detalle'"></h1>
+        </div>
+        <a class="btn btn--ghost" th:href="@{/detalles-pedido}">← Volver</a>
+    </div>
+
+    <div class="card">
+        <form method="post" th:action="@{/detalles-pedido/guardar}" th:object="${detalle}">
+            <input type="hidden" th:if="${detalle.id != null}" th:field="*{id}" />
+
+            <div class="field" th:classappend="${#fields.hasErrors('pedido')} ? 'field--invalid' : ''">
+                <label for="pedido">Pedido</label>
+                <select id="pedido" th:field="*{pedido.id}">
+                    <option value="">Seleccionar...</option>
+                    <option th:each="p : ${pedidos}" th:value="${p.id}" th:text="'#' + ${p.id} + ' — Mesa ' + ${p.mesa.numero} + ' (' + ${p.estado} + ')'"></option>
+                </select>
+                <div class="error" th:if="${#fields.hasErrors('pedido')}" th:errors="*{pedido}"></div>
+            </div>
+
+            <div class="field" th:classappend="${#fields.hasErrors('producto')} ? 'field--invalid' : ''">
+                <label for="producto">Producto</label>
+                <select id="producto" th:field="*{producto.id}">
+                    <option value="">Seleccionar...</option>
+                    <option th:each="p : ${productos}" th:value="${p.id}" th:text="${p.nombre} + ' — S/ ' + ${p.precio}"></option>
+                </select>
+                <div class="error" th:if="${#fields.hasErrors('producto')}" th:errors="*{producto}"></div>
+            </div>
+
+            <div class="form-grid">
+                <div class="field" th:classappend="${#fields.hasErrors('cantidad')} ? 'field--invalid' : ''">
+                    <label for="cantidad">Cantidad</label>
+                    <input type="number" id="cantidad" min="1" th:field="*{cantidad}" placeholder="1" />
+                    <div class="error" th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}"></div>
+                </div>
+                <div class="field" th:classappend="${#fields.hasErrors('precioUnitario')} ? 'field--invalid' : ''">
+                    <label for="precioUnitario">Precio unitario (S/)</label>
+                    <input type="number" id="precioUnitario" step="0.01" min="0.01" th:field="*{precioUnitario}" placeholder="28.00" />
+                    <div class="error" th:if="${#fields.hasErrors('precioUnitario')}" th:errors="*{precioUnitario}"></div>
+                </div>
+                <div class="field field--full">
+                    <label for="nota">Nota (opcional)</label>
+                    <input type="text" id="nota" th:field="*{nota}" placeholder="Ej. Sin cebolla" />
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn--primary" type="submit">Guardar</button>
+                <a class="btn btn--ghost" th:href="@{/detalles-pedido}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(titulo='Comprobantes')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar(activo='comprobantes')}"></nav>
+<main class="content">
+    <div class="page-head">
+        <div>
+            <div class="page-head__eyebrow">Pedidos · Transaccional</div>
+            <h1 th:text="${comprobante.id == null} ? 'Registrar comprobante' : 'Actualizar comprobante'"></h1>
+        </div>
+        <a class="btn btn--ghost" th:href="@{/comprobantes}">← Volver</a>
+    </div>
+
+    <div class="card">
+        <form method="post" th:action="@{/comprobantes/guardar}" th:object="${comprobante}">
+            <input type="hidden" th:if="${comprobante.id != null}" th:field="*{id}" />
+
+            <div class="form-grid">
+                <div class="field" th:classappend="${#fields.hasErrors('tipo')} ? 'field--invalid' : ''">
+                    <label for="tipo">Tipo</label>
+                    <select id="tipo" th:field="*{tipo}">
+                        <option value="">Seleccionar...</option>
+                        <option value="Boleta">Boleta</option>
+                        <option value="Factura">Factura</option>
+                    </select>
+                    <div class="error" th:if="${#fields.hasErrors('tipo')}" th:errors="*{tipo}"></div>
+                </div>
+                <div class="field" th:classappend="${#fields.hasErrors('serie')} ? 'field--invalid' : ''">
+                    <label for="serie">Serie</label>
+                    <input type="text" id="serie" maxlength="4" th:field="*{serie}" placeholder="B001" />
+                    <div class="error" th:if="${#fields.hasErrors('serie')}" th:errors="*{serie}"></div>
+                </div>
+                <div class="field" th:classappend="${#fields.hasErrors('numero')} ? 'field--invalid' : ''">
+                    <label for="numero">Número</label>
+                    <input type="text" id="numero" maxlength="8" th:field="*{numero}" placeholder="00000001" />
+                    <div class="error" th:if="${#fields.hasErrors('numero')}" th:errors="*{numero}"></div>
+                </div>
+                <div class="field" th:classappend="${#fields.hasErrors('total')} ? 'field--invalid' : ''">
+                    <label for="total">Total (S/)</label>
+                    <input type="number" id="total" step="0.01" min="0.01" th:field="*{total}" placeholder="39.00" />
+                    <div class="error" th:if="${#fields.hasErrors('total')}" th:errors="*{total}"></div>
+                </div>
+                <div class="field" th:classappend="${#fields.hasErrors('pedido')} ? 'field--invalid' : ''">
+                    <label for="pedido">Pedido</label>
+                    <select id="pedido" th:field="*{pedido.id}">
+                        <option value="">Seleccionar...</option>
+                        <option th:each="p : ${pedidos}" th:value="${p.id}" th:text="'#' + ${p.id} + ' — Mesa ' + ${p.mesa.numero}"></option>
+                    </select>
+                    <div class="error" th:if="${#fields.hasErrors('pedido')}" th:errors="*{pedido}"></div>
+                </div>
+                <div class="field" th:classappend="${#fields.hasErrors('metodoPago')} ? 'field--invalid' : ''">
+                    <label for="metodoPago">Método de pago</label>
+                    <select id="metodoPago" th:field="*{metodoPago.id}">
+                        <option value="">Seleccionar...</option>
+                        <option th:each="m : ${metodosPago}" th:value="${m.id}" th:text="${m.nombre}"></option>
+                    </select>
+                    <div class="error" th:if="${#fields.hasErrors('metodoPago')}" th:errors="*{metodoPago}"></div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn--primary" type="submit">Guardar</button>
+                <a class="btn btn--ghost" th:href="@{/comprobantes}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

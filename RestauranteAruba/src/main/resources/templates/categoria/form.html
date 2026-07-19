@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(titulo='Categorías')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar(activo='categorias')}"></nav>
+<main class="content">
+    <div class="page-head">
+        <div>
+            <div class="page-head__eyebrow">Catálogo · Simple</div>
+            <h1 th:text="${categoria.id == null} ? 'Registrar categoría' : 'Actualizar categoría'"></h1>
+        </div>
+        <a class="btn btn--ghost" th:href="@{/categorias}">← Volver</a>
+    </div>
+
+    <div class="card">
+        <form method="post" th:action="@{/categorias/guardar}" th:object="${categoria}">
+            <input type="hidden" th:if="${categoria.id != null}" th:field="*{id}" />
+
+            <div class="field" th:classappend="${#fields.hasErrors('nombre')} ? 'field--invalid' : ''">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" th:field="*{nombre}" placeholder="Ej. Postres" />
+                <div class="error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn--primary" type="submit">Guardar</button>
+                <a class="btn btn--ghost" th:href="@{/categorias}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

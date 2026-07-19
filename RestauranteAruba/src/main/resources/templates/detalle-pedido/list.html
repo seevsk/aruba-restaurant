@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(titulo='Detalle de pedido')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar(activo='detalles-pedido')}"></nav>
+<main class="content">
+    <div th:if="${mensaje}" class="alert alert--success" th:text="${mensaje}"></div>
+    <div th:if="${error}" class="alert alert--error" th:text="${error}"></div>
+
+    <div class="page-head">
+        <div>
+            <div class="page-head__eyebrow">Pedidos · Transaccional</div>
+            <h1>Detalle de pedido</h1>
+            <p>Línea a línea, qué productos y cantidades lleva cada pedido. No tiene estado habilitado/deshabilitado: el schema no trae esa columna.</p>
+        </div>
+        <a class="btn btn--primary" th:href="@{/detalles-pedido/nuevo}">+ Registrar</a>
+    </div>
+
+    <form class="search-form" method="get" th:action="@{/detalles-pedido}">
+        <input type="text" name="buscar" placeholder="Buscar por producto o número de pedido..." th:value="${buscar}" />
+        <button class="btn btn--ghost" type="submit">Buscar</button>
+    </form>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+            <tr>
+                <th class="num">Cod.</th>
+                <th class="num">Pedido</th>
+                <th>Producto</th>
+                <th class="num">Cant.</th>
+                <th class="num">P. unit.</th>
+                <th class="num">Subtotal</th>
+                <th>Nota</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${detalles}">
+                <td class="num" th:text="${item.id}"></td>
+                <td class="num" th:text="${item.pedido.id}"></td>
+                <td th:text="${item.producto.nombre}"></td>
+                <td class="num" th:text="${item.cantidad}"></td>
+                <td class="num" th:text="${'S/ ' + #numbers.formatDecimal(item.precioUnitario, 1, 2)}"></td>
+                <td class="num" th:text="${'S/ ' + #numbers.formatDecimal(item.precioUnitario * item.cantidad, 1, 2)}"></td>
+                <td th:text="${item.nota != null ? item.nota : '—'}"></td>
+                <td class="actions">
+                    <a class="btn btn--ghost btn--sm" th:href="@{/detalles-pedido/{id}/editar(id=${item.id})}">Editar</a>
+                    <form method="post" th:action="@{/detalles-pedido/{id}/eliminar(id=${item.id})}" onsubmit="return confirm('¿Eliminar este registro?');">
+                        <button class="btn btn--danger btn--sm" type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="empty-state" th:if="${#lists.isEmpty(detalles)}">
+            <strong>Sin resultados</strong>
+            Todavía no hay detalles de pedido registrados.
+        </div>
+    </div>
+</main>
+</body>
+</html>
