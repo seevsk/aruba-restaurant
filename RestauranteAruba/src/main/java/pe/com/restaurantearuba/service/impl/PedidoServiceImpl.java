@@ -1,4 +1,4 @@
-package pe.com.restaurantearuba.service;
+package pe.com.restaurantearuba.service.impl;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import pe.com.restaurantearuba.entity.Pedido;
 import pe.com.restaurantearuba.repository.PedidoRepository;
+import pe.com.restaurantearuba.service.PedidoService;
 
 @Service
 @RequiredArgsConstructor
