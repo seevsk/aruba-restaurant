@@ -2,19 +2,19 @@ package pe.com.restaurantearuba.service;
 
 import java.util.List;
 
-import pe.com.restaurantearuba.entity.MetodoPago;
+import pe.com.restaurantearuba.entity.MetodoPagoEntity;
 
 public interface MetodoPagoService {
 
-    List<MetodoPago> listar();
+    List<MetodoPagoEntity> listar();
 
-    List<MetodoPago> buscar(String texto);
+    List<MetodoPagoEntity> buscar(String texto);
 
-    MetodoPago obtenerPorId(Integer id);
+    MetodoPagoEntity obtenerPorId(Integer id);
 
-    MetodoPago registrar(MetodoPago metodoPago);
+    MetodoPagoEntity registrar(MetodoPagoEntity metodoPago);
 
-    MetodoPago actualizar(Integer id, MetodoPago metodoPago);
+    MetodoPagoEntity actualizar(Integer id, MetodoPagoEntity metodoPago);
 
     void eliminar(Integer id);
 

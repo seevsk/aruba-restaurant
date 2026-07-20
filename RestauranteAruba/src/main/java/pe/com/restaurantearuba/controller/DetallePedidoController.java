@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.DetallePedido;
+import pe.com.restaurantearuba.entity.DetallePedidoEntity;
 import pe.com.restaurantearuba.service.DetallePedidoService;
 import pe.com.restaurantearuba.service.PedidoService;
 import pe.com.restaurantearuba.service.ProductoService;
@@ -37,7 +37,7 @@ public class DetallePedidoController {
 
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
-        model.addAttribute("detalle", new DetallePedido());
+        model.addAttribute("detalle", new DetallePedidoEntity());
         cargarCombos(model);
         return "detalle-pedido/form";
     }
@@ -50,7 +50,7 @@ public class DetallePedidoController {
     }
 
     @PostMapping("/guardar")
-    public String guardar(@Valid @ModelAttribute("detalle") DetallePedido detalle,
+    public String guardar(@Valid @ModelAttribute("detalle") DetallePedidoEntity detalle,
                            BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             cargarCombos(model);

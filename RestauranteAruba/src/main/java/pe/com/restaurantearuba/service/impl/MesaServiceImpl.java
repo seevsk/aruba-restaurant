@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Mesa;
+import pe.com.restaurantearuba.entity.MesaEntity;
 import pe.com.restaurantearuba.repository.MesaRepository;
 import pe.com.restaurantearuba.service.MesaService;
 
@@ -23,13 +23,13 @@ public class MesaServiceImpl implements MesaService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Mesa> listar() {
+    public List<MesaEntity> listar() {
         return mesaRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Mesa> buscar(String texto) {
+    public List<MesaEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
             return listar();
         }
@@ -38,13 +38,13 @@ public class MesaServiceImpl implements MesaService {
 
     @Override
     @Transactional(readOnly = true)
-    public Mesa obtenerPorId(Integer id) {
+    public MesaEntity obtenerPorId(Integer id) {
         return mesaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Mesa no encontrada: " + id));
     }
 
     @Override
-    public Mesa registrar(Mesa mesa) {
+    public MesaEntity registrar(MesaEntity mesa) {
         mesa.setId(null);
         if (mesa.getEstado() == null || mesa.getEstado().isBlank()) {
             mesa.setEstado(DISPONIBLE);
@@ -53,8 +53,8 @@ public class MesaServiceImpl implements MesaService {
     }
 
     @Override
-    public Mesa actualizar(Integer id, Mesa datos) {
-        Mesa existente = obtenerPorId(id);
+    public MesaEntity actualizar(Integer id, MesaEntity datos) {
+        MesaEntity existente = obtenerPorId(id);
         existente.setNumero(datos.getNumero());
         existente.setCapacidad(datos.getCapacidad());
         return mesaRepository.save(existente);
@@ -67,14 +67,14 @@ public class MesaServiceImpl implements MesaService {
 
     @Override
     public void habilitar(Integer id) {
-        Mesa entidad = obtenerPorId(id);
+        MesaEntity entidad = obtenerPorId(id);
         entidad.setEstado(DISPONIBLE);
         mesaRepository.save(entidad);
     }
 
     @Override
     public void deshabilitar(Integer id) {
-        Mesa entidad = obtenerPorId(id);
+        MesaEntity entidad = obtenerPorId(id);
         entidad.setEstado(INACTIVO);
         mesaRepository.save(entidad);
     }

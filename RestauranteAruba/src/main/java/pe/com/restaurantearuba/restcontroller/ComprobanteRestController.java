@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Comprobante;
+import pe.com.restaurantearuba.entity.ComprobanteEntity;
 import pe.com.restaurantearuba.service.ComprobanteService;
 
 @RestController
@@ -28,22 +28,22 @@ public class ComprobanteRestController {
     private final ComprobanteService comprobanteService;
 
     @GetMapping
-    public List<Comprobante> listar(@RequestParam(required = false) String buscar) {
+    public List<ComprobanteEntity> listar(@RequestParam(required = false) String buscar) {
         return comprobanteService.buscar(buscar);
     }
 
     @GetMapping("/{id}")
-    public Comprobante obtener(@PathVariable Integer id) {
+    public ComprobanteEntity obtener(@PathVariable Integer id) {
         return comprobanteService.obtenerPorId(id);
     }
 
     @PostMapping
-    public ResponseEntity<Comprobante> registrar(@Valid @RequestBody Comprobante comprobante) {
+    public ResponseEntity<ComprobanteEntity> registrar(@Valid @RequestBody ComprobanteEntity comprobante) {
         return ResponseEntity.status(HttpStatus.CREATED).body(comprobanteService.registrar(comprobante));
     }
 
     @PutMapping("/{id}")
-    public Comprobante actualizar(@PathVariable Integer id, @Valid @RequestBody Comprobante comprobante) {
+    public ComprobanteEntity actualizar(@PathVariable Integer id, @Valid @RequestBody ComprobanteEntity comprobante) {
         return comprobanteService.actualizar(id, comprobante);
     }
 

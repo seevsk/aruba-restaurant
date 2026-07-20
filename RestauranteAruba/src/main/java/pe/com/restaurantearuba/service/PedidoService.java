@@ -2,19 +2,19 @@ package pe.com.restaurantearuba.service;
 
 import java.util.List;
 
-import pe.com.restaurantearuba.entity.Pedido;
+import pe.com.restaurantearuba.entity.PedidoEntity;
 
 public interface PedidoService {
 
-    List<Pedido> listar();
+    List<PedidoEntity> listar();
 
-    List<Pedido> buscar(String texto);
+    List<PedidoEntity> buscar(String texto);
 
-    Pedido obtenerPorId(Integer id);
+    PedidoEntity obtenerPorId(Integer id);
 
-    Pedido registrar(Pedido pedido);
+    PedidoEntity registrar(PedidoEntity pedido);
 
-    Pedido actualizar(Integer id, Pedido pedido);
+    PedidoEntity actualizar(Integer id, PedidoEntity pedido);
 
     void eliminar(Integer id);
 

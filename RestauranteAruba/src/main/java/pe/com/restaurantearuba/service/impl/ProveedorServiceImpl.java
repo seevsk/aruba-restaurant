@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Proveedor;
+import pe.com.restaurantearuba.entity.ProveedorEntity;
 import pe.com.restaurantearuba.repository.ProveedorRepository;
 import pe.com.restaurantearuba.service.ProveedorService;
 
@@ -20,13 +20,13 @@ public class ProveedorServiceImpl implements ProveedorService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Proveedor> listar() {
+    public List<ProveedorEntity> listar() {
         return proveedorRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Proveedor> buscar(String texto) {
+    public List<ProveedorEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
             return listar();
         }
@@ -35,13 +35,13 @@ public class ProveedorServiceImpl implements ProveedorService {
 
     @Override
     @Transactional(readOnly = true)
-    public Proveedor obtenerPorId(Integer id) {
+    public ProveedorEntity obtenerPorId(Integer id) {
         return proveedorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Proveedor no encontrado: " + id));
     }
 
     @Override
-    public Proveedor registrar(Proveedor proveedor) {
+    public ProveedorEntity registrar(ProveedorEntity proveedor) {
         proveedor.setId(null);
         if (proveedor.getEstado() == null) {
             proveedor.setEstado(true);
@@ -50,8 +50,8 @@ public class ProveedorServiceImpl implements ProveedorService {
     }
 
     @Override
-    public Proveedor actualizar(Integer id, Proveedor datos) {
-        Proveedor existente = obtenerPorId(id);
+    public ProveedorEntity actualizar(Integer id, ProveedorEntity datos) {
+        ProveedorEntity existente = obtenerPorId(id);
         existente.setRuc(datos.getRuc());
         existente.setRazonSocial(datos.getRazonSocial());
         existente.setApellidoPaterno(datos.getApellidoPaterno());
@@ -68,14 +68,14 @@ public class ProveedorServiceImpl implements ProveedorService {
 
     @Override
     public void habilitar(Integer id) {
-        Proveedor entidad = obtenerPorId(id);
+        ProveedorEntity entidad = obtenerPorId(id);
         entidad.setEstado(true);
         proveedorRepository.save(entidad);
     }
 
     @Override
     public void deshabilitar(Integer id) {
-        Proveedor entidad = obtenerPorId(id);
+        ProveedorEntity entidad = obtenerPorId(id);
         entidad.setEstado(false);
         proveedorRepository.save(entidad);
     }

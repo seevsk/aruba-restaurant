@@ -2,19 +2,19 @@ package pe.com.restaurantearuba.service;
 
 import java.util.List;
 
-import pe.com.restaurantearuba.entity.Proveedor;
+import pe.com.restaurantearuba.entity.ProveedorEntity;
 
 public interface ProveedorService {
 
-    List<Proveedor> listar();
+    List<ProveedorEntity> listar();
 
-    List<Proveedor> buscar(String texto);
+    List<ProveedorEntity> buscar(String texto);
 
-    Proveedor obtenerPorId(Integer id);
+    ProveedorEntity obtenerPorId(Integer id);
 
-    Proveedor registrar(Proveedor proveedor);
+    ProveedorEntity registrar(ProveedorEntity proveedor);
 
-    Proveedor actualizar(Integer id, Proveedor proveedor);
+    ProveedorEntity actualizar(Integer id, ProveedorEntity proveedor);
 
     void eliminar(Integer id);
 

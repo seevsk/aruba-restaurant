@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Distrito;
+import pe.com.restaurantearuba.entity.DistritoEntity;
 import pe.com.restaurantearuba.repository.DistritoRepository;
 import pe.com.restaurantearuba.service.DistritoService;
 
@@ -20,13 +20,13 @@ public class DistritoServiceImpl implements DistritoService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Distrito> listar() {
+    public List<DistritoEntity> listar() {
         return distritoRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Distrito> buscar(String texto) {
+    public List<DistritoEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
             return listar();
         }
@@ -35,13 +35,13 @@ public class DistritoServiceImpl implements DistritoService {
 
     @Override
     @Transactional(readOnly = true)
-    public Distrito obtenerPorId(Integer id) {
+    public DistritoEntity obtenerPorId(Integer id) {
         return distritoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Distrito no encontrado: " + id));
     }
 
     @Override
-    public Distrito registrar(Distrito distrito) {
+    public DistritoEntity registrar(DistritoEntity distrito) {
         distrito.setId(null);
         if (distrito.getEstado() == null) {
             distrito.setEstado(true);
@@ -50,8 +50,8 @@ public class DistritoServiceImpl implements DistritoService {
     }
 
     @Override
-    public Distrito actualizar(Integer id, Distrito datos) {
-        Distrito existente = obtenerPorId(id);
+    public DistritoEntity actualizar(Integer id, DistritoEntity datos) {
+        DistritoEntity existente = obtenerPorId(id);
         existente.setNombre(datos.getNombre());
         return distritoRepository.save(existente);
     }
@@ -63,14 +63,14 @@ public class DistritoServiceImpl implements DistritoService {
 
     @Override
     public void habilitar(Integer id) {
-        Distrito entidad = obtenerPorId(id);
+        DistritoEntity entidad = obtenerPorId(id);
         entidad.setEstado(true);
         distritoRepository.save(entidad);
     }
 
     @Override
     public void deshabilitar(Integer id) {
-        Distrito entidad = obtenerPorId(id);
+        DistritoEntity entidad = obtenerPorId(id);
         entidad.setEstado(false);
         distritoRepository.save(entidad);
     }

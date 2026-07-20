@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.DetallePedido;
+import pe.com.restaurantearuba.entity.DetallePedidoEntity;
 import pe.com.restaurantearuba.repository.DetallePedidoRepository;
 import pe.com.restaurantearuba.service.DetallePedidoService;
 
@@ -20,13 +20,13 @@ public class DetallePedidoServiceImpl implements DetallePedidoService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<DetallePedido> listar() {
+    public List<DetallePedidoEntity> listar() {
         return detallePedidoRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<DetallePedido> buscar(String texto) {
+    public List<DetallePedidoEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
             return listar();
         }
@@ -35,20 +35,20 @@ public class DetallePedidoServiceImpl implements DetallePedidoService {
 
     @Override
     @Transactional(readOnly = true)
-    public DetallePedido obtenerPorId(Integer id) {
+    public DetallePedidoEntity obtenerPorId(Integer id) {
         return detallePedidoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Detalle de pedido no encontrado: " + id));
     }
 
     @Override
-    public DetallePedido registrar(DetallePedido detallePedido) {
+    public DetallePedidoEntity registrar(DetallePedidoEntity detallePedido) {
         detallePedido.setId(null);
         return detallePedidoRepository.save(detallePedido);
     }
 
     @Override
-    public DetallePedido actualizar(Integer id, DetallePedido datos) {
-        DetallePedido existente = obtenerPorId(id);
+    public DetallePedidoEntity actualizar(Integer id, DetallePedidoEntity datos) {
+        DetallePedidoEntity existente = obtenerPorId(id);
         existente.setPedido(datos.getPedido());
         existente.setProducto(datos.getProducto());
         existente.setCantidad(datos.getCantidad());

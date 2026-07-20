@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Insumo;
+import pe.com.restaurantearuba.entity.InsumoEntity;
 import pe.com.restaurantearuba.service.InsumoService;
 import pe.com.restaurantearuba.service.ProveedorService;
 
@@ -35,7 +35,7 @@ public class InsumoController {
 
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
-        model.addAttribute("insumo", new Insumo());
+        model.addAttribute("insumo", new InsumoEntity());
         cargarCombos(model);
         return "insumo/form";
     }
@@ -48,7 +48,7 @@ public class InsumoController {
     }
 
     @PostMapping("/guardar")
-    public String guardar(@Valid @ModelAttribute("insumo") Insumo insumo,
+    public String guardar(@Valid @ModelAttribute("insumo") InsumoEntity insumo,
                            BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             cargarCombos(model);

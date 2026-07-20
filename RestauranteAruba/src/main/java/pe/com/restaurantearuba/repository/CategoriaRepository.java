@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import pe.com.restaurantearuba.entity.Categoria;
+import pe.com.restaurantearuba.entity.CategoriaEntity;
 
-public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
+public interface CategoriaRepository extends JpaRepository<CategoriaEntity, Integer> {
 
-    List<Categoria> findByNombreContainingIgnoreCase(String nombre);
+    List<CategoriaEntity> findByNombreContainingIgnoreCase(String nombre);
 }

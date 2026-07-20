@@ -22,7 +22,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+@Entity(name = "PedidoEntity")
 @Table(name = "pedido")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Getter
@@ -30,7 +30,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Pedido {
+public class PedidoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,15 +49,15 @@ public class Pedido {
     @NotNull(message = "El empleado es obligatorio")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codemp", nullable = false)
-    private Empleado empleado;
+    private EmpleadoEntity empleado;
 
     @NotNull(message = "La mesa es obligatoria")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codmes", nullable = false)
-    private Mesa mesa;
+    private MesaEntity mesa;
 
     // Un pedido puede no tener cliente registrado (consumidor sin cuenta).
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codcli")
-    private Cliente cliente;
+    private ClienteEntity cliente;
 }

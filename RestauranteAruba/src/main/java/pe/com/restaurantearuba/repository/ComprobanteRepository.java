@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import pe.com.restaurantearuba.entity.Comprobante;
+import pe.com.restaurantearuba.entity.ComprobanteEntity;
 
-public interface ComprobanteRepository extends JpaRepository<Comprobante, Integer> {
+public interface ComprobanteRepository extends JpaRepository<ComprobanteEntity, Integer> {
 
-    List<Comprobante> findByTipoContainingIgnoreCaseOrSerieContainingIgnoreCaseOrNumeroContainingIgnoreCase(
+    List<ComprobanteEntity> findByTipoContainingIgnoreCaseOrSerieContainingIgnoreCaseOrNumeroContainingIgnoreCase(
             String tipo, String serie, String numero);
 }

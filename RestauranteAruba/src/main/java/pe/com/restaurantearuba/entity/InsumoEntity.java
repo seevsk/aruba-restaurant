@@ -22,14 +22,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+@Entity(name = "InsumoEntity")
 @Table(name = "insumo")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Insumo {
+public class InsumoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,5 +60,5 @@ public class Insumo {
     @NotNull(message = "El proveedor es obligatorio")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codpro", nullable = false)
-    private Proveedor proveedor;
+    private ProveedorEntity proveedor;
 }

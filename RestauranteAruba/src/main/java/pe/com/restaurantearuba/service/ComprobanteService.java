@@ -2,19 +2,19 @@ package pe.com.restaurantearuba.service;
 
 import java.util.List;
 
-import pe.com.restaurantearuba.entity.Comprobante;
+import pe.com.restaurantearuba.entity.ComprobanteEntity;
 
 public interface ComprobanteService {
 
-    List<Comprobante> listar();
+    List<ComprobanteEntity> listar();
 
-    List<Comprobante> buscar(String texto);
+    List<ComprobanteEntity> buscar(String texto);
 
-    Comprobante obtenerPorId(Integer id);
+    ComprobanteEntity obtenerPorId(Integer id);
 
-    Comprobante registrar(Comprobante comprobante);
+    ComprobanteEntity registrar(ComprobanteEntity comprobante);
 
-    Comprobante actualizar(Integer id, Comprobante comprobante);
+    ComprobanteEntity actualizar(Integer id, ComprobanteEntity comprobante);
 
     void eliminar(Integer id);
 

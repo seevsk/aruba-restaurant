@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Distrito;
+import pe.com.restaurantearuba.entity.DistritoEntity;
 import pe.com.restaurantearuba.service.DistritoService;
 
 @RestController
@@ -28,22 +28,22 @@ public class DistritoRestController {
     private final DistritoService distritoService;
 
     @GetMapping
-    public List<Distrito> listar(@RequestParam(required = false) String buscar) {
+    public List<DistritoEntity> listar(@RequestParam(required = false) String buscar) {
         return distritoService.buscar(buscar);
     }
 
     @GetMapping("/{id}")
-    public Distrito obtener(@PathVariable Integer id) {
+    public DistritoEntity obtener(@PathVariable Integer id) {
         return distritoService.obtenerPorId(id);
     }
 
     @PostMapping
-    public ResponseEntity<Distrito> registrar(@Valid @RequestBody Distrito distrito) {
+    public ResponseEntity<DistritoEntity> registrar(@Valid @RequestBody DistritoEntity distrito) {
         return ResponseEntity.status(HttpStatus.CREATED).body(distritoService.registrar(distrito));
     }
 
     @PutMapping("/{id}")
-    public Distrito actualizar(@PathVariable Integer id, @Valid @RequestBody Distrito distrito) {
+    public DistritoEntity actualizar(@PathVariable Integer id, @Valid @RequestBody DistritoEntity distrito) {
         return distritoService.actualizar(id, distrito);
     }
 

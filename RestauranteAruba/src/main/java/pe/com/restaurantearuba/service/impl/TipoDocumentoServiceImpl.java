@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.TipoDocumento;
+import pe.com.restaurantearuba.entity.TipoDocumentoEntity;
 import pe.com.restaurantearuba.repository.TipoDocumentoRepository;
 import pe.com.restaurantearuba.service.TipoDocumentoService;
 
@@ -20,13 +20,13 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<TipoDocumento> listar() {
+    public List<TipoDocumentoEntity> listar() {
         return tipoDocumentoRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<TipoDocumento> buscar(String texto) {
+    public List<TipoDocumentoEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
             return listar();
         }
@@ -35,13 +35,13 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
 
     @Override
     @Transactional(readOnly = true)
-    public TipoDocumento obtenerPorId(Integer id) {
+    public TipoDocumentoEntity obtenerPorId(Integer id) {
         return tipoDocumentoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Tipo de documento no encontrado: " + id));
     }
 
     @Override
-    public TipoDocumento registrar(TipoDocumento tipoDocumento) {
+    public TipoDocumentoEntity registrar(TipoDocumentoEntity tipoDocumento) {
         tipoDocumento.setId(null);
         if (tipoDocumento.getEstado() == null) {
             tipoDocumento.setEstado(true);
@@ -50,8 +50,8 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
     }
 
     @Override
-    public TipoDocumento actualizar(Integer id, TipoDocumento datos) {
-        TipoDocumento existente = obtenerPorId(id);
+    public TipoDocumentoEntity actualizar(Integer id, TipoDocumentoEntity datos) {
+        TipoDocumentoEntity existente = obtenerPorId(id);
         existente.setNombre(datos.getNombre());
         return tipoDocumentoRepository.save(existente);
     }
@@ -63,14 +63,14 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
 
     @Override
     public void habilitar(Integer id) {
-        TipoDocumento entidad = obtenerPorId(id);
+        TipoDocumentoEntity entidad = obtenerPorId(id);
         entidad.setEstado(true);
         tipoDocumentoRepository.save(entidad);
     }
 
     @Override
     public void deshabilitar(Integer id) {
-        TipoDocumento entidad = obtenerPorId(id);
+        TipoDocumentoEntity entidad = obtenerPorId(id);
         entidad.setEstado(false);
         tipoDocumentoRepository.save(entidad);
     }

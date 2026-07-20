@@ -1,4 +1,4 @@
-package pe.com.restaurantearuba.entity;
+    package pe.com.restaurantearuba.entity;
 
 import java.math.BigDecimal;
 
@@ -22,7 +22,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+@Entity(name = "ProductoEntity")
 @Table(name = "producto")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Getter
@@ -30,7 +30,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Producto {
+public class ProductoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,5 +53,5 @@ public class Producto {
     @NotNull(message = "La categoria es obligatoria")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codcat", nullable = false)
-    private Categoria categoria;
+    private CategoriaEntity categoria;
 }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Insumo;
+import pe.com.restaurantearuba.entity.InsumoEntity;
 import pe.com.restaurantearuba.service.InsumoService;
 
 @RestController
@@ -28,22 +28,22 @@ public class InsumoRestController {
     private final InsumoService insumoService;
 
     @GetMapping
-    public List<Insumo> listar(@RequestParam(required = false) String buscar) {
+    public List<InsumoEntity> listar(@RequestParam(required = false) String buscar) {
         return insumoService.buscar(buscar);
     }
 
     @GetMapping("/{id}")
-    public Insumo obtener(@PathVariable Integer id) {
+    public InsumoEntity obtener(@PathVariable Integer id) {
         return insumoService.obtenerPorId(id);
     }
 
     @PostMapping
-    public ResponseEntity<Insumo> registrar(@Valid @RequestBody Insumo insumo) {
+    public ResponseEntity<InsumoEntity> registrar(@Valid @RequestBody InsumoEntity insumo) {
         return ResponseEntity.status(HttpStatus.CREATED).body(insumoService.registrar(insumo));
     }
 
     @PutMapping("/{id}")
-    public Insumo actualizar(@PathVariable Integer id, @Valid @RequestBody Insumo insumo) {
+    public InsumoEntity actualizar(@PathVariable Integer id, @Valid @RequestBody InsumoEntity insumo) {
         return insumoService.actualizar(id, insumo);
     }
 

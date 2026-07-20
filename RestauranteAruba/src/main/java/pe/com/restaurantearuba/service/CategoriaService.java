@@ -2,19 +2,19 @@ package pe.com.restaurantearuba.service;
 
 import java.util.List;
 
-import pe.com.restaurantearuba.entity.Categoria;
+import pe.com.restaurantearuba.entity.CategoriaEntity;
 
 public interface CategoriaService {
 
-    List<Categoria> listar();
+    List<CategoriaEntity> listar();
 
-    List<Categoria> buscar(String texto);
+    List<CategoriaEntity> buscar(String texto);
 
-    Categoria obtenerPorId(Integer id);
+    CategoriaEntity obtenerPorId(Integer id);
 
-    Categoria registrar(Categoria categoria);
+    CategoriaEntity registrar(CategoriaEntity categoria);
 
-    Categoria actualizar(Integer id, Categoria categoria);
+    CategoriaEntity actualizar(Integer id, CategoriaEntity categoria);
 
     void eliminar(Integer id);
 

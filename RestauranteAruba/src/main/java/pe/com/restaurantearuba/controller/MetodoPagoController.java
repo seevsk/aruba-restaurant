@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.MetodoPago;
+import pe.com.restaurantearuba.entity.MetodoPagoEntity;
 import pe.com.restaurantearuba.service.MetodoPagoService;
 
 @Controller
@@ -33,7 +33,7 @@ public class MetodoPagoController {
 
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
-        model.addAttribute("metodoPago", new MetodoPago());
+        model.addAttribute("metodoPago", new MetodoPagoEntity());
         return "metodo-pago/form";
     }
 
@@ -44,7 +44,7 @@ public class MetodoPagoController {
     }
 
     @PostMapping("/guardar")
-    public String guardar(@Valid @ModelAttribute("metodoPago") MetodoPago metodoPago,
+    public String guardar(@Valid @ModelAttribute("metodoPago") MetodoPagoEntity metodoPago,
                            BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "metodo-pago/form";

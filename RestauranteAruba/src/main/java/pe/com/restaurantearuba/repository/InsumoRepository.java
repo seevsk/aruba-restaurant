@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import pe.com.restaurantearuba.entity.Insumo;
+import pe.com.restaurantearuba.entity.InsumoEntity;
 
-public interface InsumoRepository extends JpaRepository<Insumo, Integer> {
+public interface InsumoRepository extends JpaRepository<InsumoEntity, Integer> {
 
-    List<Insumo> findByNombreContainingIgnoreCase(String nombre);
+    List<InsumoEntity> findByNombreContainingIgnoreCase(String nombre);
 }

@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.MetodoPago;
+import pe.com.restaurantearuba.entity.MetodoPagoEntity;
 import pe.com.restaurantearuba.repository.MetodoPagoRepository;
 import pe.com.restaurantearuba.service.MetodoPagoService;
 
@@ -20,13 +20,13 @@ public class MetodoPagoServiceImpl implements MetodoPagoService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<MetodoPago> listar() {
+    public List<MetodoPagoEntity> listar() {
         return metodoPagoRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<MetodoPago> buscar(String texto) {
+    public List<MetodoPagoEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
             return listar();
         }
@@ -35,13 +35,13 @@ public class MetodoPagoServiceImpl implements MetodoPagoService {
 
     @Override
     @Transactional(readOnly = true)
-    public MetodoPago obtenerPorId(Integer id) {
+    public MetodoPagoEntity obtenerPorId(Integer id) {
         return metodoPagoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Metodo de pago no encontrado: " + id));
     }
 
     @Override
-    public MetodoPago registrar(MetodoPago metodoPago) {
+    public MetodoPagoEntity registrar(MetodoPagoEntity metodoPago) {
         metodoPago.setId(null);
         if (metodoPago.getEstado() == null) {
             metodoPago.setEstado(true);
@@ -50,8 +50,8 @@ public class MetodoPagoServiceImpl implements MetodoPagoService {
     }
 
     @Override
-    public MetodoPago actualizar(Integer id, MetodoPago datos) {
-        MetodoPago existente = obtenerPorId(id);
+    public MetodoPagoEntity actualizar(Integer id, MetodoPagoEntity datos) {
+        MetodoPagoEntity existente = obtenerPorId(id);
         existente.setNombre(datos.getNombre());
         return metodoPagoRepository.save(existente);
     }
@@ -63,14 +63,14 @@ public class MetodoPagoServiceImpl implements MetodoPagoService {
 
     @Override
     public void habilitar(Integer id) {
-        MetodoPago entidad = obtenerPorId(id);
+        MetodoPagoEntity entidad = obtenerPorId(id);
         entidad.setEstado(true);
         metodoPagoRepository.save(entidad);
     }
 
     @Override
     public void deshabilitar(Integer id) {
-        MetodoPago entidad = obtenerPorId(id);
+        MetodoPagoEntity entidad = obtenerPorId(id);
         entidad.setEstado(false);
         metodoPagoRepository.save(entidad);
     }

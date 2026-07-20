@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Producto;
+import pe.com.restaurantearuba.entity.ProductoEntity;
 import pe.com.restaurantearuba.repository.ProductoRepository;
 import pe.com.restaurantearuba.service.ProductoService;
 
@@ -20,13 +20,13 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Producto> listar() {
+    public List<ProductoEntity> listar() {
         return productoRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Producto> buscar(String texto) {
+    public List<ProductoEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
             return listar();
         }
@@ -35,13 +35,13 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     @Transactional(readOnly = true)
-    public Producto obtenerPorId(Integer id) {
+    public ProductoEntity obtenerPorId(Integer id) {
         return productoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Producto no encontrado: " + id));
     }
 
     @Override
-    public Producto registrar(Producto producto) {
+    public ProductoEntity registrar(ProductoEntity producto) {
         producto.setId(null);
         if (producto.getEstado() == null) {
             producto.setEstado(true);
@@ -50,8 +50,8 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    public Producto actualizar(Integer id, Producto datos) {
-        Producto existente = obtenerPorId(id);
+    public ProductoEntity actualizar(Integer id, ProductoEntity datos) {
+        ProductoEntity existente = obtenerPorId(id);
         existente.setNombre(datos.getNombre());
         existente.setPrecio(datos.getPrecio());
         existente.setCategoria(datos.getCategoria());
@@ -65,14 +65,14 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public void habilitar(Integer id) {
-        Producto entidad = obtenerPorId(id);
+        ProductoEntity entidad = obtenerPorId(id);
         entidad.setEstado(true);
         productoRepository.save(entidad);
     }
 
     @Override
     public void deshabilitar(Integer id) {
-        Producto entidad = obtenerPorId(id);
+        ProductoEntity entidad = obtenerPorId(id);
         entidad.setEstado(false);
         productoRepository.save(entidad);
     }

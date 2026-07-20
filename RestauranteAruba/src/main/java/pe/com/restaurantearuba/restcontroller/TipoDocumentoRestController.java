@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.TipoDocumento;
+import pe.com.restaurantearuba.entity.TipoDocumentoEntity;
 import pe.com.restaurantearuba.service.TipoDocumentoService;
 
 @RestController
@@ -28,22 +28,22 @@ public class TipoDocumentoRestController {
     private final TipoDocumentoService tipoDocumentoService;
 
     @GetMapping
-    public List<TipoDocumento> listar(@RequestParam(required = false) String buscar) {
+    public List<TipoDocumentoEntity> listar(@RequestParam(required = false) String buscar) {
         return tipoDocumentoService.buscar(buscar);
     }
 
     @GetMapping("/{id}")
-    public TipoDocumento obtener(@PathVariable Integer id) {
+    public TipoDocumentoEntity obtener(@PathVariable Integer id) {
         return tipoDocumentoService.obtenerPorId(id);
     }
 
     @PostMapping
-    public ResponseEntity<TipoDocumento> registrar(@Valid @RequestBody TipoDocumento tipoDocumento) {
+    public ResponseEntity<TipoDocumentoEntity> registrar(@Valid @RequestBody TipoDocumentoEntity tipoDocumento) {
         return ResponseEntity.status(HttpStatus.CREATED).body(tipoDocumentoService.registrar(tipoDocumento));
     }
 
     @PutMapping("/{id}")
-    public TipoDocumento actualizar(@PathVariable Integer id, @Valid @RequestBody TipoDocumento tipoDocumento) {
+    public TipoDocumentoEntity actualizar(@PathVariable Integer id, @Valid @RequestBody TipoDocumentoEntity tipoDocumento) {
         return tipoDocumentoService.actualizar(id, tipoDocumento);
     }
 

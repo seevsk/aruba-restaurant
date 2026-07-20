@@ -2,19 +2,19 @@ package pe.com.restaurantearuba.service;
 
 import java.util.List;
 
-import pe.com.restaurantearuba.entity.Mesa;
+import pe.com.restaurantearuba.entity.MesaEntity;
 
 public interface MesaService {
 
-    List<Mesa> listar();
+    List<MesaEntity> listar();
 
-    List<Mesa> buscar(String texto);
+    List<MesaEntity> buscar(String texto);
 
-    Mesa obtenerPorId(Integer id);
+    MesaEntity obtenerPorId(Integer id);
 
-    Mesa registrar(Mesa mesa);
+    MesaEntity registrar(MesaEntity mesa);
 
-    Mesa actualizar(Integer id, Mesa mesa);
+    MesaEntity actualizar(Integer id, MesaEntity mesa);
 
     void eliminar(Integer id);
 

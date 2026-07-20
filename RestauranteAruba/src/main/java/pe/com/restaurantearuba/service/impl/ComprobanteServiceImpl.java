@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Comprobante;
+import pe.com.restaurantearuba.entity.ComprobanteEntity;
 import pe.com.restaurantearuba.repository.ComprobanteRepository;
 import pe.com.restaurantearuba.service.ComprobanteService;
 
@@ -20,13 +20,13 @@ public class ComprobanteServiceImpl implements ComprobanteService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Comprobante> listar() {
+    public List<ComprobanteEntity> listar() {
         return comprobanteRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Comprobante> buscar(String texto) {
+    public List<ComprobanteEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
             return listar();
         }
@@ -36,13 +36,13 @@ public class ComprobanteServiceImpl implements ComprobanteService {
 
     @Override
     @Transactional(readOnly = true)
-    public Comprobante obtenerPorId(Integer id) {
+    public ComprobanteEntity obtenerPorId(Integer id) {
         return comprobanteRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Comprobante no encontrado: " + id));
     }
 
     @Override
-    public Comprobante registrar(Comprobante comprobante) {
+    public ComprobanteEntity registrar(ComprobanteEntity comprobante) {
         comprobante.setId(null);
         if (comprobante.getEstado() == null) {
             comprobante.setEstado(true);
@@ -51,8 +51,8 @@ public class ComprobanteServiceImpl implements ComprobanteService {
     }
 
     @Override
-    public Comprobante actualizar(Integer id, Comprobante datos) {
-        Comprobante existente = obtenerPorId(id);
+    public ComprobanteEntity actualizar(Integer id, ComprobanteEntity datos) {
+        ComprobanteEntity existente = obtenerPorId(id);
         existente.setTipo(datos.getTipo());
         existente.setSerie(datos.getSerie());
         existente.setNumero(datos.getNumero());
@@ -69,14 +69,14 @@ public class ComprobanteServiceImpl implements ComprobanteService {
 
     @Override
     public void habilitar(Integer id) {
-        Comprobante entidad = obtenerPorId(id);
+        ComprobanteEntity entidad = obtenerPorId(id);
         entidad.setEstado(true);
         comprobanteRepository.save(entidad);
     }
 
     @Override
     public void deshabilitar(Integer id) {
-        Comprobante entidad = obtenerPorId(id);
+        ComprobanteEntity entidad = obtenerPorId(id);
         entidad.setEstado(false);
         comprobanteRepository.save(entidad);
     }

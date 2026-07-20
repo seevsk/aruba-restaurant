@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Insumo;
+import pe.com.restaurantearuba.entity.InsumoEntity;
 import pe.com.restaurantearuba.repository.InsumoRepository;
 import pe.com.restaurantearuba.service.InsumoService;
 
@@ -20,13 +20,13 @@ public class InsumoServiceImpl implements InsumoService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Insumo> listar() {
+    public List<InsumoEntity> listar() {
         return insumoRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Insumo> buscar(String texto) {
+    public List<InsumoEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
             return listar();
         }
@@ -35,13 +35,13 @@ public class InsumoServiceImpl implements InsumoService {
 
     @Override
     @Transactional(readOnly = true)
-    public Insumo obtenerPorId(Integer id) {
+    public InsumoEntity obtenerPorId(Integer id) {
         return insumoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Insumo no encontrado: " + id));
     }
 
     @Override
-    public Insumo registrar(Insumo insumo) {
+    public InsumoEntity registrar(InsumoEntity insumo) {
         insumo.setId(null);
         if (insumo.getEstado() == null) {
             insumo.setEstado(true);
@@ -50,8 +50,8 @@ public class InsumoServiceImpl implements InsumoService {
     }
 
     @Override
-    public Insumo actualizar(Integer id, Insumo datos) {
-        Insumo existente = obtenerPorId(id);
+    public InsumoEntity actualizar(Integer id, InsumoEntity datos) {
+        InsumoEntity existente = obtenerPorId(id);
         existente.setNombre(datos.getNombre());
         existente.setStock(datos.getStock());
         existente.setUnidadMedida(datos.getUnidadMedida());
@@ -67,14 +67,14 @@ public class InsumoServiceImpl implements InsumoService {
 
     @Override
     public void habilitar(Integer id) {
-        Insumo entidad = obtenerPorId(id);
+        InsumoEntity entidad = obtenerPorId(id);
         entidad.setEstado(true);
         insumoRepository.save(entidad);
     }
 
     @Override
     public void deshabilitar(Integer id) {
-        Insumo entidad = obtenerPorId(id);
+        InsumoEntity entidad = obtenerPorId(id);
         entidad.setEstado(false);
         insumoRepository.save(entidad);
     }

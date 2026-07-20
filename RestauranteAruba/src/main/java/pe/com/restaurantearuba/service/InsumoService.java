@@ -2,19 +2,19 @@ package pe.com.restaurantearuba.service;
 
 import java.util.List;
 
-import pe.com.restaurantearuba.entity.Insumo;
+import pe.com.restaurantearuba.entity.InsumoEntity;
 
 public interface InsumoService {
 
-    List<Insumo> listar();
+    List<InsumoEntity> listar();
 
-    List<Insumo> buscar(String texto);
+    List<InsumoEntity> buscar(String texto);
 
-    Insumo obtenerPorId(Integer id);
+    InsumoEntity obtenerPorId(Integer id);
 
-    Insumo registrar(Insumo insumo);
+    InsumoEntity registrar(InsumoEntity insumo);
 
-    Insumo actualizar(Integer id, Insumo insumo);
+    InsumoEntity actualizar(Integer id, InsumoEntity insumo);
 
     void eliminar(Integer id);
 

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Mesa;
+import pe.com.restaurantearuba.entity.MesaEntity;
 import pe.com.restaurantearuba.service.MesaService;
 
 @RestController
@@ -28,22 +28,22 @@ public class MesaRestController {
     private final MesaService mesaService;
 
     @GetMapping
-    public List<Mesa> listar(@RequestParam(required = false) String buscar) {
+    public List<MesaEntity> listar(@RequestParam(required = false) String buscar) {
         return mesaService.buscar(buscar);
     }
 
     @GetMapping("/{id}")
-    public Mesa obtener(@PathVariable Integer id) {
+    public MesaEntity obtener(@PathVariable Integer id) {
         return mesaService.obtenerPorId(id);
     }
 
     @PostMapping
-    public ResponseEntity<Mesa> registrar(@Valid @RequestBody Mesa mesa) {
+    public ResponseEntity<MesaEntity> registrar(@Valid @RequestBody MesaEntity mesa) {
         return ResponseEntity.status(HttpStatus.CREATED).body(mesaService.registrar(mesa));
     }
 
     @PutMapping("/{id}")
-    public Mesa actualizar(@PathVariable Integer id, @Valid @RequestBody Mesa mesa) {
+    public MesaEntity actualizar(@PathVariable Integer id, @Valid @RequestBody MesaEntity mesa) {
         return mesaService.actualizar(id, mesa);
     }
 

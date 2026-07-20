@@ -2,19 +2,19 @@ package pe.com.restaurantearuba.service;
 
 import java.util.List;
 
-import pe.com.restaurantearuba.entity.TipoDocumento;
+import pe.com.restaurantearuba.entity.TipoDocumentoEntity;
 
 public interface TipoDocumentoService {
 
-    List<TipoDocumento> listar();
+    List<TipoDocumentoEntity> listar();
 
-    List<TipoDocumento> buscar(String texto);
+    List<TipoDocumentoEntity> buscar(String texto);
 
-    TipoDocumento obtenerPorId(Integer id);
+    TipoDocumentoEntity obtenerPorId(Integer id);
 
-    TipoDocumento registrar(TipoDocumento tipoDocumento);
+    TipoDocumentoEntity registrar(TipoDocumentoEntity tipoDocumento);
 
-    TipoDocumento actualizar(Integer id, TipoDocumento tipoDocumento);
+    TipoDocumentoEntity actualizar(Integer id, TipoDocumentoEntity tipoDocumento);
 
     void eliminar(Integer id);
 

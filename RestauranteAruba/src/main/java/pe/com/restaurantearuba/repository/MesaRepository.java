@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import pe.com.restaurantearuba.entity.Mesa;
+import pe.com.restaurantearuba.entity.MesaEntity;
 
-public interface MesaRepository extends JpaRepository<Mesa, Integer> {
+public interface MesaRepository extends JpaRepository<MesaEntity, Integer> {
 
-    List<Mesa> findByNumeroContainingIgnoreCase(String numero);
+    List<MesaEntity> findByNumeroContainingIgnoreCase(String numero);
 }

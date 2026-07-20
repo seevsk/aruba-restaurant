@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Empleado;
+import pe.com.restaurantearuba.entity.EmpleadoEntity;
 import pe.com.restaurantearuba.service.EmpleadoService;
 
 @RestController
@@ -28,22 +28,22 @@ public class EmpleadoRestController {
     private final EmpleadoService empleadoService;
 
     @GetMapping
-    public List<Empleado> listar(@RequestParam(required = false) String buscar) {
+    public List<EmpleadoEntity> listar(@RequestParam(required = false) String buscar) {
         return empleadoService.buscar(buscar);
     }
 
     @GetMapping("/{id}")
-    public Empleado obtener(@PathVariable Integer id) {
+    public EmpleadoEntity obtener(@PathVariable Integer id) {
         return empleadoService.obtenerPorId(id);
     }
 
     @PostMapping
-    public ResponseEntity<Empleado> registrar(@Valid @RequestBody Empleado empleado) {
+    public ResponseEntity<EmpleadoEntity> registrar(@Valid @RequestBody EmpleadoEntity empleado) {
         return ResponseEntity.status(HttpStatus.CREATED).body(empleadoService.registrar(empleado));
     }
 
     @PutMapping("/{id}")
-    public Empleado actualizar(@PathVariable Integer id, @Valid @RequestBody Empleado empleado) {
+    public EmpleadoEntity actualizar(@PathVariable Integer id, @Valid @RequestBody EmpleadoEntity empleado) {
         return empleadoService.actualizar(id, empleado);
     }
 

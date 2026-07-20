@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import pe.com.restaurantearuba.entity.Proveedor;
+import pe.com.restaurantearuba.entity.ProveedorEntity;
 
-public interface ProveedorRepository extends JpaRepository<Proveedor, Integer> {
+public interface ProveedorRepository extends JpaRepository<ProveedorEntity, Integer> {
 
-    List<Proveedor> findByRazonSocialContainingIgnoreCaseOrRucContainingIgnoreCase(String razonSocial, String ruc);
+    List<ProveedorEntity> findByRazonSocialContainingIgnoreCaseOrRucContainingIgnoreCase(String razonSocial, String ruc);
 }

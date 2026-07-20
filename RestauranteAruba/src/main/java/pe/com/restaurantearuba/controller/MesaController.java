@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Mesa;
+import pe.com.restaurantearuba.entity.MesaEntity;
 import pe.com.restaurantearuba.service.MesaService;
 
 @Controller
@@ -33,7 +33,7 @@ public class MesaController {
 
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
-        model.addAttribute("mesa", new Mesa());
+        model.addAttribute("mesa", new MesaEntity());
         return "mesa/form";
     }
 
@@ -44,7 +44,7 @@ public class MesaController {
     }
 
     @PostMapping("/guardar")
-    public String guardar(@Valid @ModelAttribute("mesa") Mesa mesa,
+    public String guardar(@Valid @ModelAttribute("mesa") MesaEntity mesa,
                            BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "mesa/form";
