@@ -5,18 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title th:text="${titulo} + ' · Aruba'">Aruba</title>
     <link rel="stylesheet" th:href="@{/css/app.css}" />
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded",function(){
+        lucide.createIcons();
+        document.querySelectorAll(".navbar__trigger").forEach(function(btn){
+            btn.addEventListener("click",function(e){
+                e.stopPropagation();
+                var group=btn.closest(".navbar__group");
+                var wasOpen=group.classList.contains("is-open");
+                document.querySelectorAll(".navbar__group.is-open").forEach(function(g){
+                    g.classList.remove("is-open");
+                    g.querySelector(".navbar__trigger").setAttribute("aria-expanded","false");
+                });
+                if(!wasOpen){group.classList.add("is-open");btn.setAttribute("aria-expanded","true");}
+            });
+        });
+        document.addEventListener("click",function(){
+            document.querySelectorAll(".navbar__group.is-open").forEach(function(g){
+                g.classList.remove("is-open");
+                g.querySelector(".navbar__trigger").setAttribute("aria-expanded","false");
+            });
+        });
+        document.addEventListener("keydown",function(e){
+            if(e.key==="Escape"){
+                document.querySelectorAll(".navbar__group.is-open").forEach(function(g){
+                    g.classList.remove("is-open");
+                    g.querySelector(".navbar__trigger").setAttribute("aria-expanded","false");
+                });
+            }
+        });
+    });
+    </script>
 </head>
 <body>
 <nav class="navbar" th:fragment="navbar(activo)">
     <a class="navbar__brand" th:href="@{/}">
-        <span class="navbar__brand-mark">Aruba</span>
-        <span class="navbar__brand-sub">Back office</span>
+        <span class="navbar__brand-mark">Aruba Restaurante</span>
     </a>
     <div class="navbar__menu">
         <a class="navbar__link" th:classappend="${activo == 'inicio'} ? 'navbar__link--active' : ''" th:href="@{/}">Inicio</a>
 
-        <details class="navbar__group">
-            <summary>Catálogo <span class="navbar__caret">▾</span></summary>
+        <div class="navbar__group">
+            <button class="navbar__trigger" aria-expanded="false">Catálogo <span class="navbar__caret">▾</span></button>
             <div class="navbar__dropdown">
                 <a th:classappend="${activo == 'tipos-documento'} ? 'is-active' : ''" th:href="@{/tipos-documento}">Tipos de documento</a>
                 <a th:classappend="${activo == 'distritos'} ? 'is-active' : ''" th:href="@{/distritos}">Distritos</a>
@@ -25,26 +56,26 @@
                 <a th:classappend="${activo == 'categorias'} ? 'is-active' : ''" th:href="@{/categorias}">Categorías</a>
                 <a th:classappend="${activo == 'proveedores'} ? 'is-active' : ''" th:href="@{/proveedores}">Proveedores</a>
             </div>
-        </details>
+        </div>
 
-        <details class="navbar__group">
-            <summary>Gestión <span class="navbar__caret">▾</span></summary>
+        <div class="navbar__group">
+            <button class="navbar__trigger" aria-expanded="false">Gestión <span class="navbar__caret">▾</span></button>
             <div class="navbar__dropdown">
                 <a th:classappend="${activo == 'clientes'} ? 'is-active' : ''" th:href="@{/clientes}">Clientes</a>
                 <a th:classappend="${activo == 'empleados'} ? 'is-active' : ''" th:href="@{/empleados}">Empleados</a>
                 <a th:classappend="${activo == 'productos'} ? 'is-active' : ''" th:href="@{/productos}">Productos</a>
                 <a th:classappend="${activo == 'insumos'} ? 'is-active' : ''" th:href="@{/insumos}">Insumos</a>
             </div>
-        </details>
+        </div>
 
-        <details class="navbar__group">
-            <summary>Pedidos <span class="navbar__caret">▾</span></summary>
+        <div class="navbar__group">
+            <button class="navbar__trigger" aria-expanded="false">Pedidos <span class="navbar__caret">▾</span></button>
             <div class="navbar__dropdown">
                 <a th:classappend="${activo == 'pedidos'} ? 'is-active' : ''" th:href="@{/pedidos}">Pedidos</a>
                 <a th:classappend="${activo == 'detalles-pedido'} ? 'is-active' : ''" th:href="@{/detalles-pedido}">Detalle de pedido</a>
                 <a th:classappend="${activo == 'comprobantes'} ? 'is-active' : ''" th:href="@{/comprobantes}">Comprobantes</a>
             </div>
-        </details>
+        </div>
     </div>
 </nav>
 </body>

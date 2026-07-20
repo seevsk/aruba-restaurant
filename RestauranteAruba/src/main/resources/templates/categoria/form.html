@@ -4,9 +4,17 @@
 <body>
 <nav th:replace="~{fragments/layout :: navbar(activo='categorias')}"></nav>
 <main class="content">
+    <nav class="breadcrumb">
+        <a th:href="@{/}">Inicio</a>
+        <span class="breadcrumb__sep">›</span>
+        <a th:href="@{/categorias}">Categorías</a>
+        <span class="breadcrumb__sep">›</span>
+        <span class="breadcrumb__current">Registrar / Actualizar</span>
+    </nav>
+
     <div class="page-head">
         <div>
-            <div class="page-head__eyebrow">Catálogo · Simple</div>
+            <div class="page-head__eyebrow">Catálogo</div>
             <h1 th:text="${categoria.id == null} ? 'Registrar categoría' : 'Actualizar categoría'"></h1>
         </div>
         <a class="btn btn--ghost" th:href="@{/categorias}">← Volver</a>
