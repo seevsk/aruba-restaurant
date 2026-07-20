@@ -19,4 +19,17 @@ public interface PedidoRepository extends JpaRepository<PedidoEntity, Integer> {
                OR (c IS NOT NULL AND LOWER(c.nombres) LIKE LOWER(CONCAT('%', :texto, '%')))
             """)
     List<PedidoEntity> buscar(@Param("texto") String texto);
+
+    @Query("""
+            SELECT p FROM PedidoEntity p
+            LEFT JOIN p.cliente c
+            WHERE p.estado <> 'CANCELADO'
+              AND (LOWER(p.estado) LIKE LOWER(CONCAT('%', :texto, '%'))
+               OR LOWER(p.mesa.numero) LIKE LOWER(CONCAT('%', :texto, '%'))
+               OR LOWER(p.empleado.nombres) LIKE LOWER(CONCAT('%', :texto, '%'))
+               OR (c IS NOT NULL AND LOWER(c.nombres) LIKE LOWER(CONCAT('%', :texto, '%'))))
+            """)
+    List<PedidoEntity> buscarActivos(@Param("texto") String texto);
+
+    List<PedidoEntity> findByEstadoNot(String estado);
 }

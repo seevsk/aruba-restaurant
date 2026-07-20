@@ -20,6 +20,7 @@
         </div>
         <div style="display:flex;gap:8px;align-items:center;">
             <a class="btn btn--ghost" th:href="@{/}">← Volver</a>
+            <a class="btn btn--ghost" th:href="@{/empleados/habilitar}">Habilitar / Deshabilitar</a>
             <a class="btn btn--primary" th:href="@{/empleados/nuevo}">+ Registrar</a>
         </div>
     </div>
@@ -34,7 +35,8 @@
             <thead>
             <tr>
                 <th class="num">Cod.</th>
-                <th>Documento</th>
+                <th>Tipo doc.</th>
+                <th>N° documento</th>
                 <th>Nombre completo</th>
                 <th>Cargo</th>
                 <th>Distrito</th>
@@ -45,7 +47,8 @@
             <tbody>
             <tr th:each="item : ${empleados}">
                 <td class="num" th:text="${item.id}"></td>
-                <td th:text="${item.tipoDocumento.nombre} + ' ' + ${item.numeroDocumento}"></td>
+                <td th:text="${item.tipoDocumento.nombre}"></td>
+                <td th:text="${item.numeroDocumento}"></td>
                 <td th:text="${item.nombres} + ' ' + ${item.apellidoPaterno} + ' ' + ${item.apellidoMaterno}"></td>
                 <td th:text="${item.cargo}"></td>
                 <td th:text="${item.distrito.nombre}"></td>
@@ -55,12 +58,6 @@
                 </td>
                 <td class="actions">
                     <a class="btn btn--ghost btn--sm" th:href="@{/empleados/{id}/editar(id=${item.id})}">Editar</a>
-                    <form method="post" th:if="${item.estado}" th:action="@{/empleados/{id}/deshabilitar(id=${item.id})}">
-                        <button class="btn btn--ghost btn--sm" type="submit">Deshabilitar</button>
-                    </form>
-                    <form method="post" th:unless="${item.estado}" th:action="@{/empleados/{id}/habilitar(id=${item.id})}">
-                        <button class="btn btn--ghost btn--sm" type="submit">Habilitar</button>
-                    </form>
                     <form method="post" th:action="@{/empleados/{id}/eliminar(id=${item.id})}" onsubmit="return confirm('¿Eliminar este registro?');">
                         <button class="btn btn--danger btn--sm" type="submit">Eliminar</button>
                     </form>

@@ -52,6 +52,16 @@
                 <div class="hint">Déjalo vacío para un consumidor sin cuenta.</div>
             </div>
 
+            <div class="field" th:if="${pedido.id != null}" th:classappend="${#fields.hasErrors('estado')} ? 'field--invalid' : ''">
+                <label for="estado">Estado</label>
+                <select id="estado" th:field="*{estado}">
+                    <option value="PENDIENTE">Pendiente</option>
+                    <option value="ENTREGADO">Entregado</option>
+                    <option value="CANCELADO">Cancelado</option>
+                </select>
+                <div class="error" th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}"></div>
+            </div>
+
             <div class="form-actions">
                 <button class="btn btn--primary" type="submit">Guardar</button>
                 <a class="btn btn--ghost" th:href="@{/pedidos}">Cancelar</a>

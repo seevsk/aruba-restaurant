@@ -9,4 +9,8 @@ import pe.com.restaurantearuba.entity.ProductoEntity;
 public interface ProductoRepository extends JpaRepository<ProductoEntity, Integer> {
 
     List<ProductoEntity> findByNombreContainingIgnoreCase(String nombre);
+
+    List<ProductoEntity> findByEstadoTrue();
+
+    List<ProductoEntity> findByEstadoTrueAndNombreContainingIgnoreCase(String nombre);
 }

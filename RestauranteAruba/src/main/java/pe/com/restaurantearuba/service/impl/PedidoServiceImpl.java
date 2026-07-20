@@ -31,9 +31,9 @@ public class PedidoServiceImpl implements PedidoService {
     @Transactional(readOnly = true)
     public List<PedidoEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
-            return listar();
+            return pedidoRepository.findByEstadoNot(CANCELADO);
         }
-        return pedidoRepository.buscar(texto);
+        return pedidoRepository.buscarActivos(texto);
     }
 
     @Override
@@ -58,6 +58,9 @@ public class PedidoServiceImpl implements PedidoService {
         existente.setEmpleado(datos.getEmpleado());
         existente.setMesa(datos.getMesa());
         existente.setCliente(datos.getCliente());
+        if (datos.getEstado() != null && !datos.getEstado().isBlank()) {
+            existente.setEstado(datos.getEstado());
+        }
         return pedidoRepository.save(existente);
     }
 

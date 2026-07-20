@@ -31,6 +31,12 @@ public class TipoDocumentoController {
         return "tipo-documento/list";
     }
 
+    @GetMapping("/habilitar")
+    public String habilitarPagina(Model model) {
+        model.addAttribute("tiposDocumento", tipoDocumentoService.listar());
+        return "tipo-documento/habilitar";
+    }
+
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
         model.addAttribute("tipoDocumento", new TipoDocumentoEntity());
@@ -75,13 +81,13 @@ public class TipoDocumentoController {
     public String habilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         tipoDocumentoService.habilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Tipo de documento habilitado.");
-        return "redirect:/tipos-documento";
+        return "redirect:/tipos-documento/habilitar";
     }
 
     @PostMapping("/{id}/deshabilitar")
     public String deshabilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         tipoDocumentoService.deshabilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Tipo de documento deshabilitado.");
-        return "redirect:/tipos-documento";
+        return "redirect:/tipos-documento/habilitar";
     }
 }

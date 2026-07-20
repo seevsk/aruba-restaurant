@@ -28,9 +28,9 @@ public class InsumoServiceImpl implements InsumoService {
     @Transactional(readOnly = true)
     public List<InsumoEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
-            return listar();
+            return insumoRepository.findByEstadoTrue();
         }
-        return insumoRepository.findByNombreContainingIgnoreCase(texto);
+        return insumoRepository.findByEstadoTrueAndNombreContainingIgnoreCase(texto);
     }
 
     @Override

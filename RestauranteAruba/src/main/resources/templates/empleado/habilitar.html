@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head(titulo='Clientes')}"></head>
+<head th:replace="~{fragments/layout :: head(titulo='Empleados')}"></head>
 <body>
-<nav th:replace="~{fragments/layout :: navbar(activo='clientes')}"></nav>
+<nav th:replace="~{fragments/layout :: navbar(activo='empleados')}"></nav>
 <main class="content">
     <div th:if="${mensaje}" class="alert alert--success" th:text="${mensaje}"></div>
     <div th:if="${error}" class="alert alert--error" th:text="${error}"></div>
@@ -10,25 +10,18 @@
     <nav class="breadcrumb">
         <a th:href="@{/}">Inicio</a>
         <span class="breadcrumb__sep">›</span>
-        <span class="breadcrumb__current" th:text="'Clientes'"></span>
+        <a th:href="@{/empleados}">Empleados</a>
+        <span class="breadcrumb__sep">›</span>
+        <span class="breadcrumb__current">Habilitar / Deshabilitar</span>
     </nav>
     <div class="page-head">
         <div>
             <div class="page-head__eyebrow">Gestión</div>
-            <h1>Clientes</h1>
-            <p>Comensales registrados, con su distrito y tipo de documento.</p>
+            <h1>Habilitar / Deshabilitar Empleados</h1>
+            <p>Todos los empleados, habilitados y deshabilitados.</p>
         </div>
-        <div style="display:flex;gap:8px;align-items:center;">
-            <a class="btn btn--ghost" th:href="@{/}">← Volver</a>
-            <a class="btn btn--ghost" th:href="@{/clientes/habilitar}">Habilitar / Deshabilitar</a>
-            <a class="btn btn--primary" th:href="@{/clientes/nuevo}">+ Registrar</a>
-        </div>
+        <a class="btn btn--ghost" th:href="@{/empleados}">← Volver al listado</a>
     </div>
-
-    <form class="search-form" method="get" th:action="@{/clientes}">
-        <input type="text" name="buscar" placeholder="Buscar por nombre o documento..." th:value="${buscar}" />
-        <button class="btn btn--ghost" type="submit">Buscar</button>
-    </form>
 
     <div class="table-wrap">
         <table>
@@ -38,36 +31,38 @@
                 <th>Tipo doc.</th>
                 <th>N° documento</th>
                 <th>Nombre completo</th>
+                <th>Cargo</th>
                 <th>Distrito</th>
-                <th>Teléfono</th>
                 <th>Estado</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item : ${clientes}">
+            <tr th:each="item : ${empleados}">
                 <td class="num" th:text="${item.id}"></td>
                 <td th:text="${item.tipoDocumento.nombre}"></td>
                 <td th:text="${item.numeroDocumento}"></td>
                 <td th:text="${item.nombres} + ' ' + ${item.apellidoPaterno} + ' ' + ${item.apellidoMaterno}"></td>
+                <td th:text="${item.cargo}"></td>
                 <td th:text="${item.distrito.nombre}"></td>
-                <td th:text="${item.telefono}"></td>
                 <td>
                     <span th:if="${item.estado}" class="stub">Habilitado</span>
                     <span th:unless="${item.estado}" class="stub stub--off">Deshabilitado</span>
                 </td>
                 <td class="actions">
-                    <a class="btn btn--ghost btn--sm" th:href="@{/clientes/{id}/editar(id=${item.id})}">Editar</a>
-                    <form method="post" th:action="@{/clientes/{id}/eliminar(id=${item.id})}" onsubmit="return confirm('¿Eliminar este registro?');">
-                        <button class="btn btn--danger btn--sm" type="submit">Eliminar</button>
+                    <form method="post" th:if="${item.estado}" th:action="@{/empleados/{id}/deshabilitar(id=${item.id})}">
+                        <button class="btn btn--ghost btn--sm" type="submit">Deshabilitar</button>
+                    </form>
+                    <form method="post" th:unless="${item.estado}" th:action="@{/empleados/{id}/habilitar(id=${item.id})}">
+                        <button class="btn btn--ghost btn--sm" type="submit">Habilitar</button>
                     </form>
                 </td>
             </tr>
             </tbody>
         </table>
-        <div class="empty-state" th:if="${#lists.isEmpty(clientes)}">
+        <div class="empty-state" th:if="${#lists.isEmpty(empleados)}">
             <strong>Sin resultados</strong>
-            Todavía no hay clientes registrados.
+            No hay empleados registrados.
         </div>
     </div>
 </main>

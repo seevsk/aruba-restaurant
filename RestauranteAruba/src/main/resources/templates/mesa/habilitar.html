@@ -10,25 +10,18 @@
     <nav class="breadcrumb">
         <a th:href="@{/}">Inicio</a>
         <span class="breadcrumb__sep">›</span>
-        <span class="breadcrumb__current" th:text="'Mesas'"></span>
+        <a th:href="@{/mesas}">Mesas</a>
+        <span class="breadcrumb__sep">›</span>
+        <span class="breadcrumb__current">Habilitar / Deshabilitar</span>
     </nav>
     <div class="page-head">
         <div>
             <div class="page-head__eyebrow">Catálogo</div>
-            <h1>Mesas</h1>
-            <p>Numeración y capacidad del salón. Deshabilitar saca la mesa de servicio.</p>
+            <h1>Habilitar / Deshabilitar Mesas</h1>
+            <p>Todas las mesas, disponibles, ocupadas y deshabilitadas.</p>
         </div>
-        <div style="display:flex;gap:8px;align-items:center;">
-            <a class="btn btn--ghost" th:href="@{/}">← Volver</a>
-            <a class="btn btn--ghost" th:href="@{/mesas/habilitar}">Habilitar / Deshabilitar</a>
-            <a class="btn btn--primary" th:href="@{/mesas/nuevo}">+ Registrar</a>
-        </div>
+        <a class="btn btn--ghost" th:href="@{/mesas}">← Volver al listado</a>
     </div>
-
-    <form class="search-form" method="get" th:action="@{/mesas}">
-        <input type="text" name="buscar" placeholder="Buscar por número..." th:value="${buscar}" />
-        <button class="btn btn--ghost" type="submit">Buscar</button>
-    </form>
 
     <div class="table-wrap">
         <table>
@@ -52,9 +45,11 @@
                     <span th:if="${item.estado == 'INACTIVO'}" class="stub stub--off">Deshabilitada</span>
                 </td>
                 <td class="actions">
-                    <a class="btn btn--ghost btn--sm" th:href="@{/mesas/{id}/editar(id=${item.id})}">Editar</a>
-                    <form method="post" th:action="@{/mesas/{id}/eliminar(id=${item.id})}" onsubmit="return confirm('¿Eliminar este registro?');">
-                        <button class="btn btn--danger btn--sm" type="submit">Eliminar</button>
+                    <form method="post" th:if="${item.estado != 'INACTIVO'}" th:action="@{/mesas/{id}/deshabilitar(id=${item.id})}">
+                        <button class="btn btn--ghost btn--sm" type="submit">Deshabilitar</button>
+                    </form>
+                    <form method="post" th:if="${item.estado == 'INACTIVO'}" th:action="@{/mesas/{id}/habilitar(id=${item.id})}">
+                        <button class="btn btn--ghost btn--sm" type="submit">Habilitar</button>
                     </form>
                 </td>
             </tr>
@@ -62,7 +57,7 @@
         </table>
         <div class="empty-state" th:if="${#lists.isEmpty(mesas)}">
             <strong>Sin resultados</strong>
-            Todavía no hay mesas registradas.
+            No hay mesas registradas.
         </div>
     </div>
 </main>

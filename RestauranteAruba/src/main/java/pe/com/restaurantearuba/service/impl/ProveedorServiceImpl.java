@@ -28,9 +28,9 @@ public class ProveedorServiceImpl implements ProveedorService {
     @Transactional(readOnly = true)
     public List<ProveedorEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
-            return listar();
+            return proveedorRepository.findByEstadoTrue();
         }
-        return proveedorRepository.findByRazonSocialContainingIgnoreCaseOrRucContainingIgnoreCase(texto, texto);
+        return proveedorRepository.buscarHabilitados(texto);
     }
 
     @Override

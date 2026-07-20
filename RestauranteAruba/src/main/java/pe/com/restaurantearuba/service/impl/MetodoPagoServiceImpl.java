@@ -28,9 +28,9 @@ public class MetodoPagoServiceImpl implements MetodoPagoService {
     @Transactional(readOnly = true)
     public List<MetodoPagoEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
-            return listar();
+            return metodoPagoRepository.findByEstadoTrue();
         }
-        return metodoPagoRepository.findByNombreContainingIgnoreCase(texto);
+        return metodoPagoRepository.findByEstadoTrueAndNombreContainingIgnoreCase(texto);
     }
 
     @Override

@@ -28,10 +28,9 @@ public class ComprobanteServiceImpl implements ComprobanteService {
     @Transactional(readOnly = true)
     public List<ComprobanteEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
-            return listar();
+            return comprobanteRepository.findByEstadoTrue();
         }
-        return comprobanteRepository.findByTipoContainingIgnoreCaseOrSerieContainingIgnoreCaseOrNumeroContainingIgnoreCase(
-                texto, texto, texto);
+        return comprobanteRepository.buscarHabilitados(texto);
     }
 
     @Override

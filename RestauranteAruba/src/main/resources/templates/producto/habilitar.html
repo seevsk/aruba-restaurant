@@ -10,25 +10,18 @@
     <nav class="breadcrumb">
         <a th:href="@{/}">Inicio</a>
         <span class="breadcrumb__sep">›</span>
-        <span class="breadcrumb__current" th:text="'Productos'"></span>
+        <a th:href="@{/productos}">Productos</a>
+        <span class="breadcrumb__sep">›</span>
+        <span class="breadcrumb__current">Habilitar / Deshabilitar</span>
     </nav>
     <div class="page-head">
         <div>
             <div class="page-head__eyebrow">Gestión</div>
-            <h1>Productos</h1>
-            <p>La carta: cada producto pertenece a una categoría.</p>
+            <h1>Habilitar / Deshabilitar Productos</h1>
+            <p>Todos los productos, habilitados y deshabilitados.</p>
         </div>
-        <div style="display:flex;gap:8px;align-items:center;">
-            <a class="btn btn--ghost" th:href="@{/}">← Volver</a>
-            <a class="btn btn--ghost" th:href="@{/productos/habilitar}">Habilitar / Deshabilitar</a>
-            <a class="btn btn--primary" th:href="@{/productos/nuevo}">+ Registrar</a>
-        </div>
+        <a class="btn btn--ghost" th:href="@{/productos}">← Volver al listado</a>
     </div>
-
-    <form class="search-form" method="get" th:action="@{/productos}">
-        <input type="text" name="buscar" placeholder="Buscar por nombre..." th:value="${buscar}" />
-        <button class="btn btn--ghost" type="submit">Buscar</button>
-    </form>
 
     <div class="table-wrap">
         <table>
@@ -53,9 +46,11 @@
                     <span th:unless="${item.estado}" class="stub stub--off">Deshabilitado</span>
                 </td>
                 <td class="actions">
-                    <a class="btn btn--ghost btn--sm" th:href="@{/productos/{id}/editar(id=${item.id})}">Editar</a>
-                    <form method="post" th:action="@{/productos/{id}/eliminar(id=${item.id})}" onsubmit="return confirm('¿Eliminar este registro?');">
-                        <button class="btn btn--danger btn--sm" type="submit">Eliminar</button>
+                    <form method="post" th:if="${item.estado}" th:action="@{/productos/{id}/deshabilitar(id=${item.id})}">
+                        <button class="btn btn--ghost btn--sm" type="submit">Deshabilitar</button>
+                    </form>
+                    <form method="post" th:unless="${item.estado}" th:action="@{/productos/{id}/habilitar(id=${item.id})}">
+                        <button class="btn btn--ghost btn--sm" type="submit">Habilitar</button>
                     </form>
                 </td>
             </tr>
@@ -63,7 +58,7 @@
         </table>
         <div class="empty-state" th:if="${#lists.isEmpty(productos)}">
             <strong>Sin resultados</strong>
-            Todavía no hay productos registrados.
+            No hay productos registrados.
         </div>
     </div>
 </main>

@@ -28,9 +28,9 @@ public class DistritoServiceImpl implements DistritoService {
     @Transactional(readOnly = true)
     public List<DistritoEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
-            return listar();
+            return distritoRepository.findByEstadoTrue();
         }
-        return distritoRepository.findByNombreContainingIgnoreCase(texto);
+        return distritoRepository.findByEstadoTrueAndNombreContainingIgnoreCase(texto);
     }
 
     @Override

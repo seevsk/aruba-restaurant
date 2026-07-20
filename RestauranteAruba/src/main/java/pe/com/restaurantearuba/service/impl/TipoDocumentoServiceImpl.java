@@ -28,9 +28,9 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
     @Transactional(readOnly = true)
     public List<TipoDocumentoEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
-            return listar();
+            return tipoDocumentoRepository.findByEstadoTrue();
         }
-        return tipoDocumentoRepository.findByNombreContainingIgnoreCase(texto);
+        return tipoDocumentoRepository.findByEstadoTrueAndNombreContainingIgnoreCase(texto);
     }
 
     @Override

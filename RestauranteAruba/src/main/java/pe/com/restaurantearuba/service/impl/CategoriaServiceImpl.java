@@ -28,9 +28,9 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Transactional(readOnly = true)
     public List<CategoriaEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
-            return listar();
+            return categoriaRepository.findByEstadoTrue();
         }
-        return categoriaRepository.findByNombreContainingIgnoreCase(texto);
+        return categoriaRepository.findByEstadoTrueAndNombreContainingIgnoreCase(texto);
     }
 
     @Override

@@ -28,9 +28,9 @@ public class ClienteServiceImpl implements ClienteService {
     @Transactional(readOnly = true)
     public List<ClienteEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
-            return listar();
+            return clienteRepository.findByEstadoTrue();
         }
-        return clienteRepository.buscar(texto);
+        return clienteRepository.buscarActivos(texto);
     }
 
     @Override

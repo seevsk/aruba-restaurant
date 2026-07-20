@@ -9,4 +9,8 @@ import pe.com.restaurantearuba.entity.MetodoPagoEntity;
 public interface MetodoPagoRepository extends JpaRepository<MetodoPagoEntity, Integer> {
 
     List<MetodoPagoEntity> findByNombreContainingIgnoreCase(String nombre);
+
+    List<MetodoPagoEntity> findByEstadoTrue();
+
+    List<MetodoPagoEntity> findByEstadoTrueAndNombreContainingIgnoreCase(String nombre);
 }

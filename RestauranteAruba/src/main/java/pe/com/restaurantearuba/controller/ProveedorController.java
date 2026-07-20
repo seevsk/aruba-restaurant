@@ -31,6 +31,12 @@ public class ProveedorController {
         return "proveedor/list";
     }
 
+    @GetMapping("/habilitar")
+    public String habilitarPagina(Model model) {
+        model.addAttribute("proveedores", proveedorService.listar());
+        return "proveedor/habilitar";
+    }
+
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
         model.addAttribute("proveedor", new ProveedorEntity());
@@ -75,13 +81,13 @@ public class ProveedorController {
     public String habilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         proveedorService.habilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Proveedor habilitado.");
-        return "redirect:/proveedores";
+        return "redirect:/proveedores/habilitar";
     }
 
     @PostMapping("/{id}/deshabilitar")
     public String deshabilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         proveedorService.deshabilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Proveedor deshabilitado.");
-        return "redirect:/proveedores";
+        return "redirect:/proveedores/habilitar";
     }
 }

@@ -31,6 +31,12 @@ public class MesaController {
         return "mesa/list";
     }
 
+    @GetMapping("/habilitar")
+    public String habilitarPagina(Model model) {
+        model.addAttribute("mesas", mesaService.listar());
+        return "mesa/habilitar";
+    }
+
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
         model.addAttribute("mesa", new MesaEntity());
@@ -75,13 +81,13 @@ public class MesaController {
     public String habilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         mesaService.habilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Mesa habilitada.");
-        return "redirect:/mesas";
+        return "redirect:/mesas/habilitar";
     }
 
     @PostMapping("/{id}/deshabilitar")
     public String deshabilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         mesaService.deshabilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Mesa deshabilitada.");
-        return "redirect:/mesas";
+        return "redirect:/mesas/habilitar";
     }
 }

@@ -35,6 +35,12 @@ public class ClienteController {
         return "cliente/list";
     }
 
+    @GetMapping("/habilitar")
+    public String habilitarPagina(Model model) {
+        model.addAttribute("clientes", clienteService.listar());
+        return "cliente/habilitar";
+    }
+
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
         model.addAttribute("cliente", new ClienteEntity());
@@ -82,14 +88,14 @@ public class ClienteController {
     public String habilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         clienteService.habilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Cliente habilitado.");
-        return "redirect:/clientes";
+        return "redirect:/clientes/habilitar";
     }
 
     @PostMapping("/{id}/deshabilitar")
     public String deshabilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         clienteService.deshabilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Cliente deshabilitado.");
-        return "redirect:/clientes";
+        return "redirect:/clientes/habilitar";
     }
 
     private void cargarCombos(Model model) {

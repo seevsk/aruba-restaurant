@@ -38,6 +38,12 @@ public class PedidoController {
         return "pedido/list";
     }
 
+    @GetMapping("/habilitar")
+    public String habilitarPagina(Model model) {
+        model.addAttribute("pedidos", pedidoService.listar());
+        return "pedido/habilitar";
+    }
+
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
         model.addAttribute("pedido", new PedidoEntity());
@@ -88,14 +94,14 @@ public class PedidoController {
     public String habilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         pedidoService.habilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Pedido reabierto como pendiente.");
-        return "redirect:/pedidos";
+        return "redirect:/pedidos/habilitar";
     }
 
     @PostMapping("/{id}/deshabilitar")
     public String deshabilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         pedidoService.deshabilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Pedido cancelado.");
-        return "redirect:/pedidos";
+        return "redirect:/pedidos/habilitar";
     }
 
     private void cargarCombos(Model model) {
