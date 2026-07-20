@@ -4,9 +4,17 @@
 <body>
 <nav th:replace="~{fragments/layout :: navbar(activo='clientes')}"></nav>
 <main class="content">
+    <nav class="breadcrumb">
+        <a th:href="@{/}">Inicio</a>
+        <span class="breadcrumb__sep">›</span>
+        <a th:href="@{/clientes}">Clientes</a>
+        <span class="breadcrumb__sep">›</span>
+        <span class="breadcrumb__current">Registrar / Actualizar</span>
+    </nav>
+
     <div class="page-head">
         <div>
-            <div class="page-head__eyebrow">Gestión · Doble</div>
+            <div class="page-head__eyebrow">Gestión</div>
             <h1 th:text="${cliente.id == null} ? 'Registrar cliente' : 'Actualizar cliente'"></h1>
         </div>
         <a class="btn btn--ghost" th:href="@{/clientes}">← Volver</a>

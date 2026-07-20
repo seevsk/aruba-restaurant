@@ -4,6 +4,14 @@
 <body>
 <nav th:replace="~{fragments/layout :: navbar(activo='detalles-pedido')}"></nav>
 <main class="content">
+    <nav class="breadcrumb">
+        <a th:href="@{/}">Inicio</a>
+        <span class="breadcrumb__sep">›</span>
+        <a th:href="@{/detalles-pedido}">Detalle de pedido</a>
+        <span class="breadcrumb__sep">›</span>
+        <span class="breadcrumb__current">Registrar / Actualizar</span>
+    </nav>
+
     <div class="page-head">
         <div>
             <div class="page-head__eyebrow">Pedidos · Transaccional</div>

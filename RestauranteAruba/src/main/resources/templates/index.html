@@ -5,72 +5,85 @@
 <nav th:replace="~{fragments/layout :: navbar(activo='inicio')}"></nav>
 <main class="content">
     <div class="hero">
-        <div class="hero__eyebrow">Aruba · Back office</div>
-        <h1>Catálogo y gestión del restaurante</h1>
-        <p>Registra, actualiza, habilita y busca la información base con la que trabaja el equipo antes de tomar comandas: mesas, clientes, insumos y todo lo demás.</p>
+        <div class="hero__eyebrow">Aruba · Restaurante</div>
+        <h1>Gestión del restaurante</h1>
+        <p>Administra mesas, clientes, productos, insumos y pedidos. Mantén al día la información que tu equipo necesita para operar.</p>
     </div>
 
     <div class="section-title">Catálogo</div>
     <div class="module-grid">
-        <a class="module-card" th:href="@{/tipos-documento}">
-            <div class="module-card__label">Simple</div>
+        <a class="module-card module-card--navy" th:href="@{/tipos-documento}">
+            <i data-lucide="file-text" class="module-card__icon"></i>
             <h3>Tipos de documento</h3>
+            <div class="module-card__label">Identificaciones del cliente</div>
         </a>
-        <a class="module-card" th:href="@{/distritos}">
-            <div class="module-card__label">Simple</div>
+        <a class="module-card module-card--cloud" th:href="@{/distritos}">
+            <i data-lucide="map-pin" class="module-card__icon"></i>
             <h3>Distritos</h3>
+            <div class="module-card__label">Zonas de delivery</div>
         </a>
-        <a class="module-card" th:href="@{/mesas}">
-            <div class="module-card__label">Simple</div>
+        <a class="module-card module-card--periwinkle" th:href="@{/mesas}">
+            <i data-lucide="square" class="module-card__icon"></i>
             <h3>Mesas</h3>
+            <div class="module-card__label">Control del comedor</div>
         </a>
-        <a class="module-card" th:href="@{/metodos-pago}">
-            <div class="module-card__label">Simple</div>
+        <a class="module-card module-card--herb" th:href="@{/metodos-pago}">
+            <i data-lucide="credit-card" class="module-card__icon"></i>
             <h3>Métodos de pago</h3>
+            <div class="module-card__label">Formas de cobro</div>
         </a>
-        <a class="module-card" th:href="@{/categorias}">
-            <div class="module-card__label">Simple</div>
+        <a class="module-card module-card--lavender" th:href="@{/categorias}">
+            <i data-lucide="tag" class="module-card__icon"></i>
             <h3>Categorías</h3>
+            <div class="module-card__label">Organización del menú</div>
         </a>
-        <a class="module-card" th:href="@{/proveedores}">
-            <div class="module-card__label">Simple</div>
+        <a class="module-card module-card--peach" th:href="@{/proveedores}">
+            <i data-lucide="truck" class="module-card__icon"></i>
             <h3>Proveedores</h3>
+            <div class="module-card__label">Insumos y compras</div>
         </a>
     </div>
 
     <div class="section-title">Gestión</div>
     <div class="module-grid">
-        <a class="module-card" th:href="@{/clientes}">
-            <div class="module-card__label">Doble · distrito + tipo doc.</div>
+        <a class="module-card module-card--maroon" th:href="@{/clientes}">
+            <i data-lucide="users" class="module-card__icon"></i>
             <h3>Clientes</h3>
+            <div class="module-card__label">Base de datos de clientes</div>
         </a>
-        <a class="module-card" th:href="@{/empleados}">
-            <div class="module-card__label">Doble · distrito + tipo doc.</div>
+        <a class="module-card module-card--mint" th:href="@{/empleados}">
+            <i data-lucide="briefcase" class="module-card__icon"></i>
             <h3>Empleados</h3>
+            <div class="module-card__label">Equipo del restaurante</div>
         </a>
-        <a class="module-card" th:href="@{/productos}">
-            <div class="module-card__label">Doble · categoría</div>
+        <a class="module-card module-card--blush" th:href="@{/productos}">
+            <i data-lucide="package" class="module-card__icon"></i>
             <h3>Productos</h3>
+            <div class="module-card__label">Platos y bebidas del menú</div>
         </a>
-        <a class="module-card" th:href="@{/insumos}">
-            <div class="module-card__label">Doble · proveedor</div>
+        <a class="module-card module-card--sage" th:href="@{/insumos}">
+            <i data-lucide="box" class="module-card__icon"></i>
             <h3>Insumos</h3>
+            <div class="module-card__label">Control de inventario</div>
         </a>
     </div>
 
     <div class="section-title">Pedidos</div>
     <div class="module-grid">
-        <a class="module-card" th:href="@{/pedidos}">
-            <div class="module-card__label">Transaccional · mesa + mozo + cliente</div>
+        <a class="module-card module-card--coral" th:href="@{/pedidos}">
+            <i data-lucide="clipboard-list" class="module-card__icon"></i>
             <h3>Pedidos</h3>
+            <div class="module-card__label">Registro de comandas</div>
         </a>
-        <a class="module-card" th:href="@{/detalles-pedido}">
-            <div class="module-card__label">Transaccional · pedido + producto</div>
+        <a class="module-card module-card--slate" th:href="@{/detalles-pedido}">
+            <i data-lucide="list" class="module-card__icon"></i>
             <h3>Detalle de pedido</h3>
+            <div class="module-card__label">Productos por comanda</div>
         </a>
-        <a class="module-card" th:href="@{/comprobantes}">
-            <div class="module-card__label">Transaccional · pedido + método de pago</div>
+        <a class="module-card module-card--cream" th:href="@{/comprobantes}">
+            <i data-lucide="receipt" class="module-card__icon"></i>
             <h3>Comprobantes</h3>
+            <div class="module-card__label">Documentos de venta</div>
         </a>
     </div>
 </main>

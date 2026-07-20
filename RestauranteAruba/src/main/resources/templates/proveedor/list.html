@@ -7,13 +7,21 @@
     <div th:if="${mensaje}" class="alert alert--success" th:text="${mensaje}"></div>
     <div th:if="${error}" class="alert alert--error" th:text="${error}"></div>
 
+    <nav class="breadcrumb">
+        <a th:href="@{/}">Inicio</a>
+        <span class="breadcrumb__sep">›</span>
+        <span class="breadcrumb__current" th:text="'Proveedores'"></span>
+    </nav>
     <div class="page-head">
         <div>
-            <div class="page-head__eyebrow">Catálogo · Simple</div>
+            <div class="page-head__eyebrow">Catálogo</div>
             <h1>Proveedores</h1>
             <p>Quiénes abastecen los insumos de la despensa.</p>
         </div>
-        <a class="btn btn--primary" th:href="@{/proveedores/nuevo}">+ Registrar</a>
+        <div style="display:flex;gap:8px;align-items:center;">
+            <a class="btn btn--ghost" th:href="@{/}">← Volver</a>
+            <a class="btn btn--primary" th:href="@{/proveedores/nuevo}">+ Registrar</a>
+        </div>
     </div>
 
     <form class="search-form" method="get" th:action="@{/proveedores}">
