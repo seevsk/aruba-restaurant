@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Categoria;
+import pe.com.restaurantearuba.entity.CategoriaEntity;
 import pe.com.restaurantearuba.service.CategoriaService;
 
 @Controller
@@ -33,7 +33,7 @@ public class CategoriaController {
 
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
-        model.addAttribute("categoria", new Categoria());
+        model.addAttribute("categoria", new CategoriaEntity());
         return "categoria/form";
     }
 
@@ -44,7 +44,7 @@ public class CategoriaController {
     }
 
     @PostMapping("/guardar")
-    public String guardar(@Valid @ModelAttribute("categoria") Categoria categoria,
+    public String guardar(@Valid @ModelAttribute("categoria") CategoriaEntity categoria,
                            BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "categoria/form";

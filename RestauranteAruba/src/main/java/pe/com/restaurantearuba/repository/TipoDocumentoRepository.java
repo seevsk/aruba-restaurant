@@ -2,9 +2,9 @@ package pe.com.restaurantearuba.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import pe.com.restaurantearuba.entity.TipoDocumento;
+import pe.com.restaurantearuba.entity.TipoDocumentoEntity;
 
-public interface TipoDocumentoRepository extends JpaRepository<TipoDocumento, Integer> {
+public interface TipoDocumentoRepository extends JpaRepository<TipoDocumentoEntity, Integer> {
 
-    java.util.List<TipoDocumento> findByNombreContainingIgnoreCase(String nombre);
+    java.util.List<TipoDocumentoEntity> findByNombreContainingIgnoreCase(String nombre);
 }

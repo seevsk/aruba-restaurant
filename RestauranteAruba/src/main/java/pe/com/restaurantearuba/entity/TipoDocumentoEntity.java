@@ -15,26 +15,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "distrito")
+@Entity(name = "TipoDocumentoEntity")
+@Table(name = "tipodocumento")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Distrito {
+public class TipoDocumentoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "coddis")
+    @Column(name = "codtipdoc")
     private Integer id;
 
     @NotBlank(message = "El nombre es obligatorio")
-    @Size(max = 100)
-    @Column(name = "nomdis", nullable = false, length = 100)
+    @Size(max = 50)
+    @Column(name = "nomtipdoc", nullable = false, length = 50)
     private String nombre;
 
-    @Column(name = "estdis", nullable = false)
+    @Column(name = "esttipdoc", nullable = false)
     private Boolean estado;
 }

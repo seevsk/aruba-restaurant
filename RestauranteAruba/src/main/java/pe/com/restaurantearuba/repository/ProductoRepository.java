@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import pe.com.restaurantearuba.entity.Producto;
+import pe.com.restaurantearuba.entity.ProductoEntity;
 
-public interface ProductoRepository extends JpaRepository<Producto, Integer> {
+public interface ProductoRepository extends JpaRepository<ProductoEntity, Integer> {
 
-    List<Producto> findByNombreContainingIgnoreCase(String nombre);
+    List<ProductoEntity> findByNombreContainingIgnoreCase(String nombre);
 }

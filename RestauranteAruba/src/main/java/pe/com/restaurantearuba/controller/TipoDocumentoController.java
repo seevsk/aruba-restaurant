@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.TipoDocumento;
+import pe.com.restaurantearuba.entity.TipoDocumentoEntity;
 import pe.com.restaurantearuba.service.TipoDocumentoService;
 
 @Controller
@@ -33,7 +33,7 @@ public class TipoDocumentoController {
 
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
-        model.addAttribute("tipoDocumento", new TipoDocumento());
+        model.addAttribute("tipoDocumento", new TipoDocumentoEntity());
         return "tipo-documento/form";
     }
 
@@ -44,7 +44,7 @@ public class TipoDocumentoController {
     }
 
     @PostMapping("/guardar")
-    public String guardar(@Valid @ModelAttribute("tipoDocumento") TipoDocumento tipoDocumento,
+    public String guardar(@Valid @ModelAttribute("tipoDocumento") TipoDocumentoEntity tipoDocumento,
                            BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "tipo-documento/form";

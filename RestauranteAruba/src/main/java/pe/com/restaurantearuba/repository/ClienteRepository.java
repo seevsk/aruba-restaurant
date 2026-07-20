@@ -6,16 +6,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import pe.com.restaurantearuba.entity.Cliente;
+import pe.com.restaurantearuba.entity.ClienteEntity;
 
-public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
+public interface ClienteRepository extends JpaRepository<ClienteEntity, Integer> {
 
     @Query("""
-            SELECT c FROM Cliente c
+            SELECT c FROM ClienteEntity c
             WHERE LOWER(c.nombres) LIKE LOWER(CONCAT('%', :texto, '%'))
                OR LOWER(c.apellidoPaterno) LIKE LOWER(CONCAT('%', :texto, '%'))
                OR LOWER(c.apellidoMaterno) LIKE LOWER(CONCAT('%', :texto, '%'))
                OR c.numeroDocumento LIKE CONCAT('%', :texto, '%')
             """)
-    List<Cliente> buscar(@Param("texto") String texto);
+    List<ClienteEntity> buscar(@Param("texto") String texto);
 }

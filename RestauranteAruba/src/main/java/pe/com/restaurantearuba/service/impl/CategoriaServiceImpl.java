@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Categoria;
+import pe.com.restaurantearuba.entity.CategoriaEntity;
 import pe.com.restaurantearuba.repository.CategoriaRepository;
 import pe.com.restaurantearuba.service.CategoriaService;
 
@@ -20,13 +20,13 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Categoria> listar() {
+    public List<CategoriaEntity> listar() {
         return categoriaRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Categoria> buscar(String texto) {
+    public List<CategoriaEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
             return listar();
         }
@@ -35,13 +35,13 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Override
     @Transactional(readOnly = true)
-    public Categoria obtenerPorId(Integer id) {
+    public CategoriaEntity obtenerPorId(Integer id) {
         return categoriaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Categoria no encontrada: " + id));
     }
 
     @Override
-    public Categoria registrar(Categoria categoria) {
+    public CategoriaEntity registrar(CategoriaEntity categoria) {
         categoria.setId(null);
         if (categoria.getEstado() == null) {
             categoria.setEstado(true);
@@ -50,8 +50,8 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
-    public Categoria actualizar(Integer id, Categoria datos) {
-        Categoria existente = obtenerPorId(id);
+    public CategoriaEntity actualizar(Integer id, CategoriaEntity datos) {
+        CategoriaEntity existente = obtenerPorId(id);
         existente.setNombre(datos.getNombre());
         return categoriaRepository.save(existente);
     }
@@ -63,14 +63,14 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Override
     public void habilitar(Integer id) {
-        Categoria entidad = obtenerPorId(id);
+        CategoriaEntity entidad = obtenerPorId(id);
         entidad.setEstado(true);
         categoriaRepository.save(entidad);
     }
 
     @Override
     public void deshabilitar(Integer id) {
-        Categoria entidad = obtenerPorId(id);
+        CategoriaEntity entidad = obtenerPorId(id);
         entidad.setEstado(false);
         categoriaRepository.save(entidad);
     }

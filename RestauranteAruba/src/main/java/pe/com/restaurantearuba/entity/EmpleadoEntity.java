@@ -19,19 +19,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "cliente")
+@Entity(name = "EmpleadoEntity")
+@Table(name = "empleado")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Cliente {
+public class EmpleadoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codcli")
+    @Column(name = "codemp")
     private Integer id;
 
     @NotBlank(message = "El numero de documento es obligatorio")
@@ -41,39 +41,44 @@ public class Cliente {
 
     @NotBlank(message = "El nombre es obligatorio")
     @Size(max = 150)
-    @Column(name = "nomcli", nullable = false, length = 150)
+    @Column(name = "nomemp", nullable = false, length = 150)
     private String nombres;
 
     @NotBlank(message = "El apellido paterno es obligatorio")
     @Size(max = 100)
-    @Column(name = "apepcli", nullable = false, length = 100)
+    @Column(name = "apepemp", nullable = false, length = 100)
     private String apellidoPaterno;
 
     @NotBlank(message = "El apellido materno es obligatorio")
     @Size(max = 100)
-    @Column(name = "apemcli", nullable = false, length = 100)
+    @Column(name = "apememp", nullable = false, length = 100)
     private String apellidoMaterno;
 
+    @NotBlank(message = "El cargo es obligatorio")
+    @Size(max = 50)
+    @Column(name = "caremp", nullable = false, length = 50)
+    private String cargo;
+
     @NotBlank(message = "El telefono es obligatorio")
-    @Size(max = 15)
-    @Column(name = "telcli", nullable = false, length = 15)
+    @Size(max = 20)
+    @Column(name = "telemp", nullable = false, length = 20)
     private String telefono;
 
     @NotBlank(message = "La direccion es obligatoria")
     @Size(max = 100)
-    @Column(name = "dirclir", nullable = false, length = 100)
+    @Column(name = "diremp", nullable = false, length = 100)
     private String direccion;
 
-    @Column(name = "estcli", nullable = false)
+    @Column(name = "estemp", nullable = false)
     private Boolean estado;
 
     @NotNull(message = "El distrito es obligatorio")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coddis", nullable = false)
-    private Distrito distrito;
+    private DistritoEntity distrito;
 
     @NotNull(message = "El tipo de documento es obligatorio")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codtipdoc", nullable = false)
-    private TipoDocumento tipoDocumento;
+    private TipoDocumentoEntity tipoDocumento;
 }

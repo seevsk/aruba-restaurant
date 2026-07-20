@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Distrito;
+import pe.com.restaurantearuba.entity.DistritoEntity;
 import pe.com.restaurantearuba.service.DistritoService;
 
 @Controller
@@ -33,7 +33,7 @@ public class DistritoController {
 
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
-        model.addAttribute("distrito", new Distrito());
+        model.addAttribute("distrito", new DistritoEntity());
         return "distrito/form";
     }
 
@@ -44,7 +44,7 @@ public class DistritoController {
     }
 
     @PostMapping("/guardar")
-    public String guardar(@Valid @ModelAttribute("distrito") Distrito distrito,
+    public String guardar(@Valid @ModelAttribute("distrito") DistritoEntity distrito,
                            BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "distrito/form";

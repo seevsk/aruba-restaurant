@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Categoria;
+import pe.com.restaurantearuba.entity.CategoriaEntity;
 import pe.com.restaurantearuba.service.CategoriaService;
 
 @RestController
@@ -28,22 +28,22 @@ public class CategoriaRestController {
     private final CategoriaService categoriaService;
 
     @GetMapping
-    public List<Categoria> listar(@RequestParam(required = false) String buscar) {
+    public List<CategoriaEntity> listar(@RequestParam(required = false) String buscar) {
         return categoriaService.buscar(buscar);
     }
 
     @GetMapping("/{id}")
-    public Categoria obtener(@PathVariable Integer id) {
+    public CategoriaEntity obtener(@PathVariable Integer id) {
         return categoriaService.obtenerPorId(id);
     }
 
     @PostMapping
-    public ResponseEntity<Categoria> registrar(@Valid @RequestBody Categoria categoria) {
+    public ResponseEntity<CategoriaEntity> registrar(@Valid @RequestBody CategoriaEntity categoria) {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoriaService.registrar(categoria));
     }
 
     @PutMapping("/{id}")
-    public Categoria actualizar(@PathVariable Integer id, @Valid @RequestBody Categoria categoria) {
+    public CategoriaEntity actualizar(@PathVariable Integer id, @Valid @RequestBody CategoriaEntity categoria) {
         return categoriaService.actualizar(id, categoria);
     }
 

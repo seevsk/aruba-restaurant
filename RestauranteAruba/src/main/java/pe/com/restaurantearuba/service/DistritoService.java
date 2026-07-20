@@ -2,19 +2,19 @@ package pe.com.restaurantearuba.service;
 
 import java.util.List;
 
-import pe.com.restaurantearuba.entity.Distrito;
+import pe.com.restaurantearuba.entity.DistritoEntity;
 
 public interface DistritoService {
 
-    List<Distrito> listar();
+    List<DistritoEntity> listar();
 
-    List<Distrito> buscar(String texto);
+    List<DistritoEntity> buscar(String texto);
 
-    Distrito obtenerPorId(Integer id);
+    DistritoEntity obtenerPorId(Integer id);
 
-    Distrito registrar(Distrito distrito);
+    DistritoEntity registrar(DistritoEntity distrito);
 
-    Distrito actualizar(Integer id, Distrito distrito);
+    DistritoEntity actualizar(Integer id, DistritoEntity distrito);
 
     void eliminar(Integer id);
 

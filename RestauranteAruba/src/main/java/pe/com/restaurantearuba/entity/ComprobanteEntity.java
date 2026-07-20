@@ -25,7 +25,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+@Entity(name = "ComprobanteEntity")
 @Table(name = "comprobante")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Getter
@@ -33,7 +33,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Comprobante {
+public class ComprobanteEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,10 +70,10 @@ public class Comprobante {
     @NotNull(message = "El pedido es obligatorio")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codped", nullable = false)
-    private Pedido pedido;
+    private PedidoEntity pedido;
 
     @NotNull(message = "El metodo de pago es obligatorio")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codmet", nullable = false)
-    private MetodoPago metodoPago;
+    private MetodoPagoEntity metodoPago;
 }

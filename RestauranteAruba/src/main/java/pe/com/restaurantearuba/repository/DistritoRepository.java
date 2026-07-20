@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import pe.com.restaurantearuba.entity.Distrito;
+import pe.com.restaurantearuba.entity.DistritoEntity;
 
-public interface DistritoRepository extends JpaRepository<Distrito, Integer> {
+public interface DistritoRepository extends JpaRepository<DistritoEntity, Integer> {
 
-    List<Distrito> findByNombreContainingIgnoreCase(String nombre);
+    List<DistritoEntity> findByNombreContainingIgnoreCase(String nombre);
 }

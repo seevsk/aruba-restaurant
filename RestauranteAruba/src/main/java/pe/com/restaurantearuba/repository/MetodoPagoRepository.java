@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import pe.com.restaurantearuba.entity.MetodoPago;
+import pe.com.restaurantearuba.entity.MetodoPagoEntity;
 
-public interface MetodoPagoRepository extends JpaRepository<MetodoPago, Integer> {
+public interface MetodoPagoRepository extends JpaRepository<MetodoPagoEntity, Integer> {
 
-    List<MetodoPago> findByNombreContainingIgnoreCase(String nombre);
+    List<MetodoPagoEntity> findByNombreContainingIgnoreCase(String nombre);
 }

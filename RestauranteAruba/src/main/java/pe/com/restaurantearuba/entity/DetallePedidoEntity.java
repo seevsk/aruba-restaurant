@@ -22,7 +22,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+@Entity(name = "DetallePedidoEntity")
 @Table(name = "detallepedido")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Getter
@@ -30,7 +30,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DetallePedido {
+public class DetallePedidoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,12 +40,12 @@ public class DetallePedido {
     @NotNull(message = "El pedido es obligatorio")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codped", nullable = false)
-    private Pedido pedido;
+    private PedidoEntity pedido;
 
     @NotNull(message = "El producto es obligatorio")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codprd", nullable = false)
-    private Producto producto;
+    private ProductoEntity producto;
 
     @NotNull(message = "La cantidad es obligatoria")
     @Min(value = 1, message = "La cantidad debe ser mayor a 0")

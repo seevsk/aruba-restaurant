@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Proveedor;
+import pe.com.restaurantearuba.entity.ProveedorEntity;
 import pe.com.restaurantearuba.service.ProveedorService;
 
 @Controller
@@ -33,7 +33,7 @@ public class ProveedorController {
 
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
-        model.addAttribute("proveedor", new Proveedor());
+        model.addAttribute("proveedor", new ProveedorEntity());
         return "proveedor/form";
     }
 
@@ -44,7 +44,7 @@ public class ProveedorController {
     }
 
     @PostMapping("/guardar")
-    public String guardar(@Valid @ModelAttribute("proveedor") Proveedor proveedor,
+    public String guardar(@Valid @ModelAttribute("proveedor") ProveedorEntity proveedor,
                            BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "proveedor/form";

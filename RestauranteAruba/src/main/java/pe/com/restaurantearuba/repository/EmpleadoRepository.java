@@ -6,16 +6,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import pe.com.restaurantearuba.entity.Empleado;
+import pe.com.restaurantearuba.entity.EmpleadoEntity;
 
-public interface EmpleadoRepository extends JpaRepository<Empleado, Integer> {
+public interface EmpleadoRepository extends JpaRepository<EmpleadoEntity, Integer> {
 
     @Query("""
-            SELECT e FROM Empleado e
+            SELECT e FROM EmpleadoEntity e
             WHERE LOWER(e.nombres) LIKE LOWER(CONCAT('%', :texto, '%'))
                OR LOWER(e.apellidoPaterno) LIKE LOWER(CONCAT('%', :texto, '%'))
                OR LOWER(e.apellidoMaterno) LIKE LOWER(CONCAT('%', :texto, '%'))
                OR e.numeroDocumento LIKE CONCAT('%', :texto, '%')
             """)
-    List<Empleado> buscar(@Param("texto") String texto);
+    List<EmpleadoEntity> buscar(@Param("texto") String texto);
 }

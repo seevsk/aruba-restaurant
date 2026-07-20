@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Cliente;
+import pe.com.restaurantearuba.entity.ClienteEntity;
 import pe.com.restaurantearuba.repository.ClienteRepository;
 import pe.com.restaurantearuba.service.ClienteService;
 
@@ -20,13 +20,13 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Cliente> listar() {
+    public List<ClienteEntity> listar() {
         return clienteRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Cliente> buscar(String texto) {
+    public List<ClienteEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
             return listar();
         }
@@ -35,13 +35,13 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     @Transactional(readOnly = true)
-    public Cliente obtenerPorId(Integer id) {
+    public ClienteEntity obtenerPorId(Integer id) {
         return clienteRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado: " + id));
     }
 
     @Override
-    public Cliente registrar(Cliente cliente) {
+    public ClienteEntity registrar(ClienteEntity cliente) {
         cliente.setId(null);
         if (cliente.getEstado() == null) {
             cliente.setEstado(true);
@@ -50,8 +50,8 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public Cliente actualizar(Integer id, Cliente datos) {
-        Cliente existente = obtenerPorId(id);
+    public ClienteEntity actualizar(Integer id, ClienteEntity datos) {
+        ClienteEntity existente = obtenerPorId(id);
         existente.setNumeroDocumento(datos.getNumeroDocumento());
         existente.setNombres(datos.getNombres());
         existente.setApellidoPaterno(datos.getApellidoPaterno());
@@ -70,14 +70,14 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public void habilitar(Integer id) {
-        Cliente entidad = obtenerPorId(id);
+        ClienteEntity entidad = obtenerPorId(id);
         entidad.setEstado(true);
         clienteRepository.save(entidad);
     }
 
     @Override
     public void deshabilitar(Integer id) {
-        Cliente entidad = obtenerPorId(id);
+        ClienteEntity entidad = obtenerPorId(id);
         entidad.setEstado(false);
         clienteRepository.save(entidad);
     }

@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.Pedido;
+import pe.com.restaurantearuba.entity.PedidoEntity;
 import pe.com.restaurantearuba.repository.PedidoRepository;
 import pe.com.restaurantearuba.service.PedidoService;
 
@@ -23,13 +23,13 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Pedido> listar() {
+    public List<PedidoEntity> listar() {
         return pedidoRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Pedido> buscar(String texto) {
+    public List<PedidoEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
             return listar();
         }
@@ -38,13 +38,13 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     @Transactional(readOnly = true)
-    public Pedido obtenerPorId(Integer id) {
+    public PedidoEntity obtenerPorId(Integer id) {
         return pedidoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Pedido no encontrado: " + id));
     }
 
     @Override
-    public Pedido registrar(Pedido pedido) {
+    public PedidoEntity registrar(PedidoEntity pedido) {
         pedido.setId(null);
         if (pedido.getEstado() == null || pedido.getEstado().isBlank()) {
             pedido.setEstado(PENDIENTE);
@@ -53,8 +53,8 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     @Override
-    public Pedido actualizar(Integer id, Pedido datos) {
-        Pedido existente = obtenerPorId(id);
+    public PedidoEntity actualizar(Integer id, PedidoEntity datos) {
+        PedidoEntity existente = obtenerPorId(id);
         existente.setEmpleado(datos.getEmpleado());
         existente.setMesa(datos.getMesa());
         existente.setCliente(datos.getCliente());
@@ -68,14 +68,14 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public void habilitar(Integer id) {
-        Pedido entidad = obtenerPorId(id);
+        PedidoEntity entidad = obtenerPorId(id);
         entidad.setEstado(PENDIENTE);
         pedidoRepository.save(entidad);
     }
 
     @Override
     public void deshabilitar(Integer id) {
-        Pedido entidad = obtenerPorId(id);
+        PedidoEntity entidad = obtenerPorId(id);
         entidad.setEstado(CANCELADO);
         pedidoRepository.save(entidad);
     }

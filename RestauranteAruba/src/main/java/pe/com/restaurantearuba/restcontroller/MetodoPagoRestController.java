@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import pe.com.restaurantearuba.entity.MetodoPago;
+import pe.com.restaurantearuba.entity.MetodoPagoEntity;
 import pe.com.restaurantearuba.service.MetodoPagoService;
 
 @RestController
@@ -28,22 +28,22 @@ public class MetodoPagoRestController {
     private final MetodoPagoService metodoPagoService;
 
     @GetMapping
-    public List<MetodoPago> listar(@RequestParam(required = false) String buscar) {
+    public List<MetodoPagoEntity> listar(@RequestParam(required = false) String buscar) {
         return metodoPagoService.buscar(buscar);
     }
 
     @GetMapping("/{id}")
-    public MetodoPago obtener(@PathVariable Integer id) {
+    public MetodoPagoEntity obtener(@PathVariable Integer id) {
         return metodoPagoService.obtenerPorId(id);
     }
 
     @PostMapping
-    public ResponseEntity<MetodoPago> registrar(@Valid @RequestBody MetodoPago metodoPago) {
+    public ResponseEntity<MetodoPagoEntity> registrar(@Valid @RequestBody MetodoPagoEntity metodoPago) {
         return ResponseEntity.status(HttpStatus.CREATED).body(metodoPagoService.registrar(metodoPago));
     }
 
     @PutMapping("/{id}")
-    public MetodoPago actualizar(@PathVariable Integer id, @Valid @RequestBody MetodoPago metodoPago) {
+    public MetodoPagoEntity actualizar(@PathVariable Integer id, @Valid @RequestBody MetodoPagoEntity metodoPago) {
         return metodoPagoService.actualizar(id, metodoPago);
     }
 
