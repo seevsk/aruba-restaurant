@@ -31,6 +31,12 @@ public class DistritoController {
         return "distrito/list";
     }
 
+    @GetMapping("/habilitar")
+    public String habilitarPagina(Model model) {
+        model.addAttribute("distritos", distritoService.listar());
+        return "distrito/habilitar";
+    }
+
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
         model.addAttribute("distrito", new DistritoEntity());
@@ -75,13 +81,13 @@ public class DistritoController {
     public String habilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         distritoService.habilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Distrito habilitado.");
-        return "redirect:/distritos";
+        return "redirect:/distritos/habilitar";
     }
 
     @PostMapping("/{id}/deshabilitar")
     public String deshabilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         distritoService.deshabilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Distrito deshabilitado.");
-        return "redirect:/distritos";
+        return "redirect:/distritos/habilitar";
     }
 }

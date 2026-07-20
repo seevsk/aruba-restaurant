@@ -28,9 +28,9 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     @Transactional(readOnly = true)
     public List<EmpleadoEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
-            return listar();
+            return empleadoRepository.findByEstadoTrue();
         }
-        return empleadoRepository.buscar(texto);
+        return empleadoRepository.buscarActivos(texto);
     }
 
     @Override

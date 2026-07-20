@@ -33,6 +33,12 @@ public class InsumoController {
         return "insumo/list";
     }
 
+    @GetMapping("/habilitar")
+    public String habilitarPagina(Model model) {
+        model.addAttribute("insumos", insumoService.listar());
+        return "insumo/habilitar";
+    }
+
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
         model.addAttribute("insumo", new InsumoEntity());
@@ -80,14 +86,14 @@ public class InsumoController {
     public String habilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         insumoService.habilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Insumo habilitado.");
-        return "redirect:/insumos";
+        return "redirect:/insumos/habilitar";
     }
 
     @PostMapping("/{id}/deshabilitar")
     public String deshabilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         insumoService.deshabilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Insumo deshabilitado.");
-        return "redirect:/insumos";
+        return "redirect:/insumos/habilitar";
     }
 
     private void cargarCombos(Model model) {

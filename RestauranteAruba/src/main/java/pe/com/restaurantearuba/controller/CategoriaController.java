@@ -31,6 +31,12 @@ public class CategoriaController {
         return "categoria/list";
     }
 
+    @GetMapping("/habilitar")
+    public String habilitarPagina(Model model) {
+        model.addAttribute("categorias", categoriaService.listar());
+        return "categoria/habilitar";
+    }
+
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
         model.addAttribute("categoria", new CategoriaEntity());
@@ -75,13 +81,13 @@ public class CategoriaController {
     public String habilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         categoriaService.habilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Categoria habilitada.");
-        return "redirect:/categorias";
+        return "redirect:/categorias/habilitar";
     }
 
     @PostMapping("/{id}/deshabilitar")
     public String deshabilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         categoriaService.deshabilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Categoria deshabilitada.");
-        return "redirect:/categorias";
+        return "redirect:/categorias/habilitar";
     }
 }

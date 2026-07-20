@@ -9,4 +9,8 @@ import pe.com.restaurantearuba.entity.InsumoEntity;
 public interface InsumoRepository extends JpaRepository<InsumoEntity, Integer> {
 
     List<InsumoEntity> findByNombreContainingIgnoreCase(String nombre);
+
+    List<InsumoEntity> findByEstadoTrue();
+
+    List<InsumoEntity> findByEstadoTrueAndNombreContainingIgnoreCase(String nombre);
 }

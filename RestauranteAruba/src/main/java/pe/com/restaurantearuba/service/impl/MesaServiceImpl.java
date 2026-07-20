@@ -31,9 +31,9 @@ public class MesaServiceImpl implements MesaService {
     @Transactional(readOnly = true)
     public List<MesaEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
-            return listar();
+            return mesaRepository.findByEstadoNot(INACTIVO);
         }
-        return mesaRepository.findByNumeroContainingIgnoreCase(texto);
+        return mesaRepository.findByEstadoNotAndNumeroContainingIgnoreCase(INACTIVO, texto);
     }
 
     @Override
@@ -57,6 +57,9 @@ public class MesaServiceImpl implements MesaService {
         MesaEntity existente = obtenerPorId(id);
         existente.setNumero(datos.getNumero());
         existente.setCapacidad(datos.getCapacidad());
+        if (datos.getEstado() != null && !datos.getEstado().isBlank()) {
+            existente.setEstado(datos.getEstado());
+        }
         return mesaRepository.save(existente);
     }
 

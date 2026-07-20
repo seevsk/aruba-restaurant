@@ -10,25 +10,18 @@
     <nav class="breadcrumb">
         <a th:href="@{/}">Inicio</a>
         <span class="breadcrumb__sep">›</span>
-        <span class="breadcrumb__current" th:text="'Métodos de pago'"></span>
+        <a th:href="@{/metodos-pago}">Métodos de pago</a>
+        <span class="breadcrumb__sep">›</span>
+        <span class="breadcrumb__current">Habilitar / Deshabilitar</span>
     </nav>
     <div class="page-head">
         <div>
             <div class="page-head__eyebrow">Catálogo</div>
-            <h1>Métodos de pago</h1>
-            <p>Efectivo, tarjeta, Yape... formas de cobro disponibles en caja.</p>
+            <h1>Habilitar / Deshabilitar Métodos de pago</h1>
+            <p>Todos los métodos de pago, habilitados y deshabilitados.</p>
         </div>
-        <div style="display:flex;gap:8px;align-items:center;">
-            <a class="btn btn--ghost" th:href="@{/}">← Volver</a>
-            <a class="btn btn--ghost" th:href="@{/metodos-pago/habilitar}">Habilitar / Deshabilitar</a>
-            <a class="btn btn--primary" th:href="@{/metodos-pago/nuevo}">+ Registrar</a>
-        </div>
+        <a class="btn btn--ghost" th:href="@{/metodos-pago}">← Volver al listado</a>
     </div>
-
-    <form class="search-form" method="get" th:action="@{/metodos-pago}">
-        <input type="text" name="buscar" placeholder="Buscar por nombre..." th:value="${buscar}" />
-        <button class="btn btn--ghost" type="submit">Buscar</button>
-    </form>
 
     <div class="table-wrap">
         <table>
@@ -49,9 +42,11 @@
                     <span th:unless="${item.estado}" class="stub stub--off">Deshabilitado</span>
                 </td>
                 <td class="actions">
-                    <a class="btn btn--ghost btn--sm" th:href="@{/metodos-pago/{id}/editar(id=${item.id})}">Editar</a>
-                    <form method="post" th:action="@{/metodos-pago/{id}/eliminar(id=${item.id})}" onsubmit="return confirm('¿Eliminar este registro?');">
-                        <button class="btn btn--danger btn--sm" type="submit">Eliminar</button>
+                    <form method="post" th:if="${item.estado}" th:action="@{/metodos-pago/{id}/deshabilitar(id=${item.id})}">
+                        <button class="btn btn--ghost btn--sm" type="submit">Deshabilitar</button>
+                    </form>
+                    <form method="post" th:unless="${item.estado}" th:action="@{/metodos-pago/{id}/habilitar(id=${item.id})}">
+                        <button class="btn btn--ghost btn--sm" type="submit">Habilitar</button>
                     </form>
                 </td>
             </tr>
@@ -59,7 +54,7 @@
         </table>
         <div class="empty-state" th:if="${#lists.isEmpty(metodosPago)}">
             <strong>Sin resultados</strong>
-            Todavía no hay métodos de pago registrados.
+            No hay métodos de pago registrados.
         </div>
     </div>
 </main>

@@ -31,6 +31,12 @@ public class MetodoPagoController {
         return "metodo-pago/list";
     }
 
+    @GetMapping("/habilitar")
+    public String habilitarPagina(Model model) {
+        model.addAttribute("metodosPago", metodoPagoService.listar());
+        return "metodo-pago/habilitar";
+    }
+
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
         model.addAttribute("metodoPago", new MetodoPagoEntity());
@@ -75,13 +81,13 @@ public class MetodoPagoController {
     public String habilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         metodoPagoService.habilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Metodo de pago habilitado.");
-        return "redirect:/metodos-pago";
+        return "redirect:/metodos-pago/habilitar";
     }
 
     @PostMapping("/{id}/deshabilitar")
     public String deshabilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         metodoPagoService.deshabilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Metodo de pago deshabilitado.");
-        return "redirect:/metodos-pago";
+        return "redirect:/metodos-pago/habilitar";
     }
 }

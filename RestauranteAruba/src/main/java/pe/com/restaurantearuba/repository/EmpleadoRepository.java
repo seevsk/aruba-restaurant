@@ -18,4 +18,16 @@ public interface EmpleadoRepository extends JpaRepository<EmpleadoEntity, Intege
                OR e.numeroDocumento LIKE CONCAT('%', :texto, '%')
             """)
     List<EmpleadoEntity> buscar(@Param("texto") String texto);
+
+    List<EmpleadoEntity> findByEstadoTrue();
+
+    @Query("""
+            SELECT e FROM EmpleadoEntity e
+            WHERE e.estado = true
+              AND (LOWER(e.nombres) LIKE LOWER(CONCAT('%', :texto, '%'))
+               OR LOWER(e.apellidoPaterno) LIKE LOWER(CONCAT('%', :texto, '%'))
+               OR LOWER(e.apellidoMaterno) LIKE LOWER(CONCAT('%', :texto, '%'))
+               OR e.numeroDocumento LIKE CONCAT('%', :texto, '%'))
+            """)
+    List<EmpleadoEntity> buscarActivos(@Param("texto") String texto);
 }

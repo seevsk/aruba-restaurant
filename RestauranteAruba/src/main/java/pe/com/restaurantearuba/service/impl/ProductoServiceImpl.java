@@ -28,9 +28,9 @@ public class ProductoServiceImpl implements ProductoService {
     @Transactional(readOnly = true)
     public List<ProductoEntity> buscar(String texto) {
         if (texto == null || texto.isBlank()) {
-            return listar();
+            return productoRepository.findByEstadoTrue();
         }
-        return productoRepository.findByNombreContainingIgnoreCase(texto);
+        return productoRepository.findByEstadoTrueAndNombreContainingIgnoreCase(texto);
     }
 
     @Override

@@ -35,6 +35,15 @@
                     <input type="number" id="capacidad" th:field="*{capacidad}" min="1" placeholder="Ej. 4" />
                     <div class="error" th:if="${#fields.hasErrors('capacidad')}" th:errors="*{capacidad}"></div>
                 </div>
+                <div class="field" th:classappend="${#fields.hasErrors('estado')} ? 'field--invalid' : ''">
+                    <label for="estado">Estado</label>
+                    <select id="estado" th:field="*{estado}">
+                        <option value="DISPONIBLE">Disponible</option>
+                        <option value="OCUPADA">Ocupada</option>
+                        <option value="INACTIVO">Inactivo (deshabilitada)</option>
+                    </select>
+                    <div class="error" th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}"></div>
+                </div>
             </div>
 
             <div class="form-actions">

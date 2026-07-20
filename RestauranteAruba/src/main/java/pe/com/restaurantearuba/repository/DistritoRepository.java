@@ -9,4 +9,8 @@ import pe.com.restaurantearuba.entity.DistritoEntity;
 public interface DistritoRepository extends JpaRepository<DistritoEntity, Integer> {
 
     List<DistritoEntity> findByNombreContainingIgnoreCase(String nombre);
+
+    List<DistritoEntity> findByEstadoTrue();
+
+    List<DistritoEntity> findByEstadoTrueAndNombreContainingIgnoreCase(String nombre);
 }

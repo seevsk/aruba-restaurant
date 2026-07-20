@@ -35,6 +35,12 @@ public class ComprobanteController {
         return "comprobante/list";
     }
 
+    @GetMapping("/habilitar")
+    public String habilitarPagina(Model model) {
+        model.addAttribute("comprobantes", comprobanteService.listar());
+        return "comprobante/habilitar";
+    }
+
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
         model.addAttribute("comprobante", new ComprobanteEntity());
@@ -82,14 +88,14 @@ public class ComprobanteController {
     public String habilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         comprobanteService.habilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Comprobante habilitado.");
-        return "redirect:/comprobantes";
+        return "redirect:/comprobantes/habilitar";
     }
 
     @PostMapping("/{id}/deshabilitar")
     public String deshabilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         comprobanteService.deshabilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Comprobante deshabilitado.");
-        return "redirect:/comprobantes";
+        return "redirect:/comprobantes/habilitar";
     }
 
     private void cargarCombos(Model model) {

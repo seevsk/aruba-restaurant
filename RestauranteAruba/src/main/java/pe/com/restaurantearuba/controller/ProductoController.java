@@ -33,6 +33,12 @@ public class ProductoController {
         return "producto/list";
     }
 
+    @GetMapping("/habilitar")
+    public String habilitarPagina(Model model) {
+        model.addAttribute("productos", productoService.listar());
+        return "producto/habilitar";
+    }
+
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
         model.addAttribute("producto", new ProductoEntity());
@@ -80,14 +86,14 @@ public class ProductoController {
     public String habilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         productoService.habilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Producto habilitado.");
-        return "redirect:/productos";
+        return "redirect:/productos/habilitar";
     }
 
     @PostMapping("/{id}/deshabilitar")
     public String deshabilitar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         productoService.deshabilitar(id);
         redirectAttributes.addFlashAttribute("mensaje", "Producto deshabilitado.");
-        return "redirect:/productos";
+        return "redirect:/productos/habilitar";
     }
 
     private void cargarCombos(Model model) {

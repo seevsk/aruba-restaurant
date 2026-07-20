@@ -10,25 +10,18 @@
     <nav class="breadcrumb">
         <a th:href="@{/}">Inicio</a>
         <span class="breadcrumb__sep">›</span>
-        <span class="breadcrumb__current" th:text="'Pedidos'"></span>
+        <a th:href="@{/pedidos}">Pedidos</a>
+        <span class="breadcrumb__sep">›</span>
+        <span class="breadcrumb__current">Cancelar / Reabrir</span>
     </nav>
     <div class="page-head">
         <div>
             <div class="page-head__eyebrow">Pedidos · Transaccional</div>
-            <h1>Pedidos</h1>
-            <p>Comandas abiertas por mesa. El cliente es opcional.</p>
+            <h1>Cancelar / Reabrir Pedidos</h1>
+            <p>Todos los pedidos, incluyendo los cancelados.</p>
         </div>
-        <div style="display:flex;gap:8px;align-items:center;">
-            <a class="btn btn--ghost" th:href="@{/}">← Volver</a>
-            <a class="btn btn--ghost" th:href="@{/pedidos/habilitar}">Cancelar / Reabrir</a>
-            <a class="btn btn--primary" th:href="@{/pedidos/nuevo}">+ Registrar</a>
-        </div>
+        <a class="btn btn--ghost" th:href="@{/pedidos}">← Volver al listado</a>
     </div>
-
-    <form class="search-form" method="get" th:action="@{/pedidos}">
-        <input type="text" name="buscar" placeholder="Buscar por mesa, mozo, cliente o estado..." th:value="${buscar}" />
-        <button class="btn btn--ghost" type="submit">Buscar</button>
-    </form>
 
     <div class="table-wrap">
         <table>
@@ -56,9 +49,11 @@
                     <span th:if="${item.estado == 'CANCELADO'}" class="stub stub--off">Cancelado</span>
                 </td>
                 <td class="actions">
-                    <a class="btn btn--ghost btn--sm" th:href="@{/pedidos/{id}/editar(id=${item.id})}">Editar</a>
-                    <form method="post" th:action="@{/pedidos/{id}/eliminar(id=${item.id})}" onsubmit="return confirm('¿Eliminar este registro?');">
-                        <button class="btn btn--danger btn--sm" type="submit">Eliminar</button>
+                    <form method="post" th:if="${item.estado != 'CANCELADO'}" th:action="@{/pedidos/{id}/deshabilitar(id=${item.id})}">
+                        <button class="btn btn--ghost btn--sm" type="submit">Cancelar</button>
+                    </form>
+                    <form method="post" th:if="${item.estado == 'CANCELADO'}" th:action="@{/pedidos/{id}/habilitar(id=${item.id})}">
+                        <button class="btn btn--ghost btn--sm" type="submit">Reabrir</button>
                     </form>
                 </td>
             </tr>
@@ -66,7 +61,7 @@
         </table>
         <div class="empty-state" th:if="${#lists.isEmpty(pedidos)}">
             <strong>Sin resultados</strong>
-            Todavía no hay pedidos registrados.
+            No hay pedidos registrados.
         </div>
     </div>
 </main>
